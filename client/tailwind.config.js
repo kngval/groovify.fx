@@ -7,7 +7,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        customLightBlue: "#6CA9CE",
+        customBlue: "#0E1D35",
+      },
+    },
   },
   plugins: [],
 };
