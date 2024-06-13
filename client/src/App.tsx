@@ -6,8 +6,8 @@ import { RootState } from "./redux/store";
 import Overview from "./pages/Overview";
 
 function App() {
-  const accessToken = useSelector((state: RootState) => state.auth.accessToken);
-  console.log("ACCESS TOKEN : ",accessToken);
+  const jwtToken = useSelector((state: RootState) => state.auth.jwtToken);
+  console.log("ACCESS TOKEN : ", jwtToken);
   return (
     <>
       <BrowserRouter>
@@ -16,20 +16,16 @@ function App() {
           <Route
             path="/"
             element={
-              accessToken ? (
-                <Navigate to="/overview" />
-              ) : (
-                <Navigate to="/login" />
-              )
+              jwtToken ? <Navigate to="/overview" /> : <Navigate to="/login" />
             }
           />
           <Route
             path="/overview"
-            element={accessToken ? <Overview /> : <Navigate to="/login" />}
+            element={jwtToken ? <Overview /> : <Navigate to="/login" />}
           />
           <Route
             path="/login"
-            element={!accessToken ? <Login /> : <Navigate to="/overview" />}
+            element={!jwtToken ? <Login /> : <Navigate to="/overview" />}
           />
         </Routes>
       </BrowserRouter>

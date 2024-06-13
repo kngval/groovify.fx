@@ -3,7 +3,7 @@ import login from "../assets/login.svg";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
 import axios from "axios";
-import { setAccessToken } from "../redux/authSlice";
+import { setJwtToken } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -11,7 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   const query = new URLSearchParams(window.location.search);
   const code = query.get("code") as string;
-  console.log("CODE URL : ",code)
+  console.log("CODE URL : ", code);
   useEffect(() => {
     if (code) {
       fetchCode();
@@ -19,20 +19,19 @@ const Login = () => {
   }, []);
 
   const fetchCode = async () => {
-      try {
-        console.log("CODE ", code);
-        const response = await axios.get(
-          `http://localhost:3000/callback?code=${code}`
-        );
-        console.log("Response Data : ", response.data);
-        dispatch(setAccessToken(response.data.access_token));
-      } catch (error: any) {
-        console.error(
-          "Error fetching access token:",
-          error.response?.data || error.message
-        ); // Enhanced error logging
-      }
-  
+    try {
+      console.log("CODE ", code);
+      const response = await axios.get(
+        `http://localhost:3000/callback?code=${code}`
+      );
+      console.log("Response Data : ", response.data);
+      dispatch(setJwtToken(response.data.jwtToken));
+    } catch (error: any) {
+      console.error(
+        "Error fetching access token:",
+        error.response?.data || error.message
+      ); // Enhanced error logging
+    }
   };
   useEffect(() => {
     if (code) {

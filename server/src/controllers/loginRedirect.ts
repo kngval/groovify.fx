@@ -76,14 +76,24 @@ export const callback = async (req: Request, res: Response) => {
         },
       });
 
-      const user = {
-        id: userProfile.data.id,
-        email: userProfile.data.email,
-        display_name: userProfile.data.display_name,
-      };
+      // const user = {
+      //   id: userProfile.data.id,
+      //   email: userProfile.data.email,
+      //   display_name: userProfile.data.display_name,
+      //   accessToken: access_token,
+      // };
       const jwt_secret = process.env.JWT_SECRET as string;
-      const jwtToken = jwt.sign(user, jwt_secret);
-
+      const jwtToken = jwt.sign(
+        {
+          id: userProfile.data.id,
+          email: userProfile.data.email,
+          display_name: userProfile.data.display_name,
+          accessToken: access_token,
+        },
+        jwt_secret,
+        {}
+      );
+      console.log("JWT TOKEN: ", jwtToken);
       return res.status(200).json({ access_token, jwtToken: jwtToken });
     } else {
       return res.status(400).json({ error: "Authorization Error" });
