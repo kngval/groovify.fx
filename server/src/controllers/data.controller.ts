@@ -8,15 +8,12 @@ export const fetchProfile = async (req: Request, res: Response) => {
     return res.status(401).json({ error: "Access token not found" });
   }
   try {
-    const response = await fetch(
-      "https://api.spotify.com/v1/browse/new-releases",
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-type": "application/json",
-        },
-      }
-    );
+    const response = await fetch("https://api.spotify.com/v1/me/", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-type": "application/json",
+      },
+    });
     const data = await response.json();
     return data
       ? res.status(200).json({ data })

@@ -68,7 +68,7 @@ export const callback = async (req: Request, res: Response) => {
     const response = await axios(authOptions);
     console.log("RESPONSE DATA : ", response.data);
     if (response) {
-      const { access_token } = response.data;
+      const { access_token, expires_in } = response.data;
 
       const userProfile = await axios.get("https://api.spotify.com/v1/me", {
         headers: {
@@ -91,10 +91,12 @@ export const callback = async (req: Request, res: Response) => {
           accessToken: access_token,
         },
         jwt_secret,
-        {}
+        
       );
       console.log("JWT TOKEN: ", jwtToken);
-      return res.status(200).json({ access_token, jwtToken: jwtToken });
+      return res
+        .status(200)
+        .json({ access_token, jwtToken: jwtToken, expires_in });
     } else {
       return res.status(400).json({ error: "Authorization Error" });
     }
