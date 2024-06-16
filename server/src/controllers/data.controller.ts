@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 
 export const fetchProfile = async (req: Request, res: Response) => {
   const accessToken = req.user?.accessToken;
-  console.log(`REQ USER :`, req.user);
-  console.log("ACCESS TOKEN : ", accessToken);
   if (!accessToken) {
     return res.status(401).json({ error: "Access token not found" });
   }

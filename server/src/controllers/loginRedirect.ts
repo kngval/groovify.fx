@@ -91,7 +91,9 @@ export const callback = async (req: Request, res: Response) => {
           accessToken: access_token,
         },
         jwt_secret,
-        
+        {
+          expiresIn: expires_in,
+        }
       );
       console.log("JWT TOKEN: ", jwtToken);
       return res
