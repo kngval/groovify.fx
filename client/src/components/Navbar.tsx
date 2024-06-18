@@ -2,15 +2,15 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 const Navbar = () => {
-  const accessToken = useSelector((state: RootState) => state.auth.accessToken);
+  const jwtToken = useSelector((state: RootState) => state.auth.jwtToken);
   return (
-    <div className="py-6  flex justify-center items-center bg-customBlue">
+    <div className="py-6  flex justify-center items-center bg-">
       <div className="w-[70%] flex justify-between items-center">
         <div className="nav-title font-extrabold flex items-center text-lg sm:text-xl h-full">
           groovify
         </div>
         <div>
-          {!accessToken && (
+          {!jwtToken && (
             <button
               onClick={() =>
                 (window.location.href = `${import.meta.env.VITE_URL}/login`)

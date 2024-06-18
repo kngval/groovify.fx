@@ -6,15 +6,17 @@ import { checkTokenExpiry, isTokenExpired } from "../utils/token";
 import { Profile } from "../types/profile.types";
 import { CurrentlyPlaying } from "../types/currentlyPlaying.types";
 import { FaSpotify } from "react-icons/fa6";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [currentlyPlaying, setCurrentlyPlaying] =
+    useState<CurrentlyPlaying | null>(null);
+  const location = useLocation();
   const jwtToken = useSelector((state: RootState) => state.auth.jwtToken);
   if (jwtToken) {
     console.log("TOKEN EXP : ", isTokenExpired(jwtToken));
   }
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [currentlyPlaying, setCurrentlyPlaying] =
-    useState<CurrentlyPlaying | null>(null);
   useEffect(() => {
     checkTokenExpiry();
     fetchProfile();
@@ -33,6 +35,11 @@ const Header = () => {
       console.error(error);
     }
   };
+
+  const navigate = useNavigate();
+  function navTo(endpoint: string): void {
+    navigate(`/${endpoint}`);
+  }
 
   const fetchCurrentlyPlaying = async () => {
     try {
@@ -54,7 +61,7 @@ const Header = () => {
   };
   return (
     <div className="relative bg-customBlue px-4 grid place-items-center">
-      <div className="wrapper w-[80%] lg:w-[900px] xl:w-[1200px]  relative pt-20">
+      <div className="wrapper w-[80%] lg:w-[900px] xl:w-[1100px]  relative pt-20">
         <div className="grid lg:grid-cols-2 gap-7 place-items-center  lg:flex lg:justify-between lg:items-center  m-auto">
           <div className="grid lg:grid-cols-2 text-center gap-11 ">
             <div className="pfp rounded-full border-4 border-white w-[150px] h-[150px] overflow-hidden">
@@ -117,16 +124,63 @@ const Header = () => {
           </div>
         </div>
         <div className="h-28"></div>
-        <div className="absolute bottom-0 left-0 w-[100%] navigations-wrapper   text-sm  overflow-x-auto   ">
-          <div className="flex gap-[2.2rem]  text-sm font-medium">
-            <div className="">
-              <h1 className="pb-1">Overview</h1>
-              <div className="line w-[100%] bg-customLightBlue h-1"></div>
+        <div className="absolute -bottom-1 left-0 w-[100%] navigations flex  lg:justify-normal text-sm  overflow-x-auto  hide-scrollbar ">
+          <div className="flex  gap-[2.2rem]  text-sm font-medium">
+            <div
+              className="pb-1 cursor-pointer "
+              onClick={() => navTo("overview")}
+            >
+              Overview
+              <div
+                className={`line  ${
+                  location.pathname === "/overview" ? "w-full" : "w-0"
+                } transition-all duration-1000 ease-in-out bg-customLightBlue h-1`}
+              ></div>
             </div>
-            <div className="pb-1">Songs</div>
-            <div className="pb-1">Artists</div>
-            <div className="pb-1">Albums</div>
-            <div className="pb-1">Genre</div>
+            <div
+              className={`pb-1 cursor-pointer`}
+              onClick={() => navTo("tracks")}
+            >
+              Tracks
+              <div
+                className={`line  ${
+                  location.pathname === "/tracks" ? "w-full" : "w-0"
+                } transition-width ease-in-out duration-700  bg-customLightBlue h-1`}
+              ></div>
+            </div>
+            <div
+              className="pb-1 cursor-pointer"
+              onClick={() => navTo("artists")}
+            >
+              Artists
+              <div
+                className={`line  ${
+                  location.pathname === "/artists" ? "w-full" : "w-0"
+                } transition ease-in-out  bg-customLightBlue h-1`}
+              ></div>
+            </div>
+            <div
+              className="pb-1 cursor-pointer"
+              onClick={() => navTo("albums")}
+            >
+              Albums
+              <div
+                className={`line  ${
+                  location.pathname === "/albums" ? "w-full" : "w-0"
+                } transition ease-in-out  bg-customLightBlue h-1`}
+              ></div>
+            </div>
+            <div
+              className="pb-1 cursor-pointer"
+              onClick={() => navTo("genres")}
+            >
+              Genre
+              <div
+                className={`line  ${
+                  location.pathname === "/genres" ? "w-full" : "w-0"
+                } transition ease-in-out  bg-customLightBlue h-1`}
+              ></div>
+            </div>
           </div>
         </div>
       </div>

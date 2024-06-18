@@ -19,3 +19,10 @@ body {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;  /* Safari and Chrome */
 }
+
+
+@media (min-width:540px){
+  .navigations {
+    justify-content: center;
+  }
+}

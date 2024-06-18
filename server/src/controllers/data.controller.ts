@@ -47,3 +47,14 @@ export const fetchCurrentlyPlaying = async (req: Request, res: Response) => {
     return res.status(400).json({ error: "No access token provided " });
   }
 };
+
+
+export const fetchTopSongs = async(_req:Request,res:Response) => {
+
+  try {
+
+  } catch (error) {
+    return res.status(400).json({error})
+  }
+
+}
