@@ -1,4 +1,4 @@
-function parseJwt(token) {
+function parseJwt(token:string) {
   const base64Url = token.split(".")[1];
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
   const jsonPayload = decodeURIComponent(
@@ -11,7 +11,7 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 
-export function isTokenExpired(token) {
+export function isTokenExpired(token:string) {
   const decodedToken = parseJwt(token);
   const expiryTime = decodedToken.exp * 1000; // Convert to milliseconds
   const now = Date.now();
