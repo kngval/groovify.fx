@@ -61,7 +61,7 @@ const Header = () => {
   };
   return (
     <div className="relative bg-customBlue px-4 grid place-items-center">
-      <div className="wrapper w-[80%] lg:w-[900px] xl:w-[1100px]  relative pt-20">
+      <div className="wrapper w-[80%] lg:w-[900px] xl:w-[1200px]  relative pt-20">
         <div className="grid lg:grid-cols-2 gap-7 place-items-center  lg:flex lg:justify-between lg:items-center  m-auto">
           <div className="grid lg:grid-cols-2 text-center gap-11 ">
             <div className="pfp rounded-full border-4 border-white w-[150px] h-[150px] overflow-hidden">
