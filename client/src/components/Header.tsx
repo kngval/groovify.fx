@@ -22,26 +22,32 @@ const Header = () => {
     fetchProfile();
     fetchCurrentlyPlaying();
   }, []);
-  const fetchProfile = async () => {
+  const fetchProfile = async (): Promise<Profile> => {
     try {
       const res = await axios.get("http://localhost:3000/api/profile", {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },
       });
-      console.log(res.data.data);
-      setProfile(res.data.data);
+      if (res && res.data && res.data.data) {
+        console.log(res.data.data);
+        setProfile(res.data.data);
+        return res.data.data as Profile;
+      } else {
+        throw new Error("No Profile Data");
+      }
     } catch (error) {
       console.error(error);
+      throw error;
     }
   };
 
   const navigate = useNavigate();
   function navTo(endpoint: string): void {
-    navigate(`/${endpoint}`);
+    navigate(`/my-stats/${endpoint}`);
   }
 
-  const fetchCurrentlyPlaying = async () => {
+  const fetchCurrentlyPlaying = async (): Promise<CurrentlyPlaying> => {
     try {
       const res = await axios.get(
         "http://localhost:3000/api/currently-playing",
@@ -51,12 +57,16 @@ const Header = () => {
           },
         }
       );
-      if (res) {
+      if (res && res.data && res.data.data && res.data.data.item) {
         console.log("CURRENTLY  : PLAYING", res.data.data.item);
         setCurrentlyPlaying(res.data.data.item);
+        return res.data.data.item as CurrentlyPlaying;
+      } else {
+        throw new Error("No response data");
       }
     } catch (error) {
       console.error(error);
+      throw error;
     }
   };
   return (
@@ -64,7 +74,7 @@ const Header = () => {
       <div className="wrapper w-[80%] lg:w-[900px] xl:w-[1200px]  relative pt-20">
         <div className="grid lg:grid-cols-2 gap-7 place-items-center  lg:flex lg:justify-between lg:items-center  m-auto">
           <div className="grid lg:grid-cols-2 text-center gap-11 ">
-            <div className="pfp rounded-full border-4 border-white w-[150px] h-[150px] overflow-hidden">
+            <div className="pfp rounded-full border-4 border-white w-[150px] h-[150px] overflow-hidden self-end">
               <img
                 src={profile?.images[1].url}
                 className="w-full h-full object-cover object-center rounded-full"
@@ -79,7 +89,7 @@ const Header = () => {
             </div>
           </div>
 
-          <div className="w-full lg:w-auto grid place-items-center lg:place-items-end gap-5 lg:justify-end">
+          <div className="w-full lg:self-end lg:w-auto grid place-items-center lg:place-items-end  gap-5">
             <div className="text-center flex items-center gap-2">
               <FaSpotify className="text-xl" />
               <a href={profile?.external_urls.spotify} className="font-medium">
@@ -87,7 +97,7 @@ const Header = () => {
               </a>
             </div>
             {currentlyPlaying && (
-              <div className="currently-playing   bg-customLightBlue rounded-lg p-4 ">
+              <div className="currently-playing   bg-customLightBlue rounded-lg p-4 lg:pr-">
                 <div className="flex gap-5">
                   <img
                     src={currentlyPlaying?.album.images[0].url}
@@ -127,58 +137,58 @@ const Header = () => {
         <div className="absolute -bottom-1 left-0 w-[100%] navigations flex  lg:justify-normal text-sm  overflow-x-auto  hide-scrollbar ">
           <div className="flex  gap-[2.2rem]  text-sm font-medium">
             <div
-              className="pb-1 cursor-pointer "
+              className="pb-1 cursor-pointer flex flex-col items-center gap-2"
               onClick={() => navTo("overview")}
             >
               Overview
               <div
                 className={`line  ${
-                  location.pathname === "/overview" ? "w-full" : "w-0"
-                } transition-all duration-1000 ease-in-out bg-customLightBlue h-1`}
+                  location.pathname === "/my-stats/overview" ? "w-full" : "w-0"
+                } transition-all duration-500 ease-in-out bg-customLightBlue h-1`}
               ></div>
             </div>
             <div
-              className={`pb-1 cursor-pointer`}
+              className={`pb-1 cursor-pointer flex flex-col items-center gap-2`}
               onClick={() => navTo("tracks")}
             >
               Tracks
               <div
                 className={`line  ${
-                  location.pathname === "/tracks" ? "w-full" : "w-0"
-                } transition-width ease-in-out duration-700  bg-customLightBlue h-1`}
+                  location.pathname === "/my-stats/tracks" ? "w-full" : "w-0"
+                } transition-all duration-500 ease-in-out bg-customLightBlue h-1`}
               ></div>
             </div>
             <div
-              className="pb-1 cursor-pointer"
+              className="pb-1 cursor-pointer flex flex-col items-center gap-2"
               onClick={() => navTo("artists")}
             >
               Artists
               <div
                 className={`line  ${
-                  location.pathname === "/artists" ? "w-full" : "w-0"
-                } transition ease-in-out  bg-customLightBlue h-1`}
+                  location.pathname === "/my-stats/artists" ? "w-full" : "w-0"
+                } transition-all duration-500 ease-in-out bg-customLightBlue h-1`}
               ></div>
             </div>
             <div
-              className="pb-1 cursor-pointer"
+              className="pb-1 cursor-pointer flex flex-col items-center gap-2"
               onClick={() => navTo("albums")}
             >
               Albums
               <div
                 className={`line  ${
-                  location.pathname === "/albums" ? "w-full" : "w-0"
-                } transition ease-in-out  bg-customLightBlue h-1`}
+                  location.pathname === "/my-stats/albums" ? "w-full" : "w-0"
+                } transition-all duration-500 ease-in-out bg-customLightBlue h-1`}
               ></div>
             </div>
             <div
-              className="pb-1 cursor-pointer"
+              className="pb-1 cursor-pointer flex flex-col items-center gap-2"
               onClick={() => navTo("genres")}
             >
               Genre
               <div
                 className={`line  ${
-                  location.pathname === "/genres" ? "w-full" : "w-0"
-                } transition ease-in-out  bg-customLightBlue h-1`}
+                  location.pathname === "/my-stats/genres" ? "w-full" : "w-0"
+                } transition-all duration-500 ease-in-out bg-customLightBlue h-1`}
               ></div>
             </div>
           </div>

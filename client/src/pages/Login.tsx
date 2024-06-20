@@ -35,7 +35,7 @@ const Login = () => {
   };
   useEffect(() => {
     if (code) {
-      navigate("/overview");
+      navigate("/my-stats/overview");
     }
   }, []);
   return (

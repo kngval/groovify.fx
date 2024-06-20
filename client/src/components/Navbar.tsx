@@ -4,8 +4,8 @@ import { RootState } from "../redux/store";
 const Navbar = () => {
   const jwtToken = useSelector((state: RootState) => state.auth.jwtToken);
   return (
-    <div className="py-6  flex justify-center items-center bg-">
-      <div className="w-[70%] flex justify-between items-center">
+    <div className="py-6  flex justify-center items-center bg-customBlue">
+      <div className="w-[80%] lg:w-[900px] xl:w-[1200px] flex justify-between items-center">
         <div className="nav-title font-extrabold flex items-center text-lg sm:text-xl h-full">
           groovify
         </div>

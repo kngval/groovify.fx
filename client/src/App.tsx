@@ -8,6 +8,7 @@ import Tracks from "./pages/Tracks";
 import Artists from "./pages/Artists";
 import Albums from "./pages/Albums";
 import Genres from "./pages/Genres";
+import Header from "./components/Header";
 
 function App() {
   const jwtToken = useSelector((state: RootState) => state.auth.jwtToken);
@@ -16,35 +17,42 @@ function App() {
     <>
       <BrowserRouter>
         <Navbar />
+        {jwtToken ? <Header /> : <Navigate to="/login" />}
         <Routes>
           <Route
             path="/"
             element={
-              jwtToken ? <Navigate to="/overview" /> : <Navigate to="/login" />
+              jwtToken ? (
+                <Navigate to="/my-stats/overview" />
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
           <Route
-            path="/overview"
+            path="/my-stats/overview"
             element={jwtToken ? <Overview /> : <Navigate to="/login" />}
           />
           <Route
             path="/login"
-            element={!jwtToken ? <Login /> : <Navigate to="/overview" />}
+            element={
+              !jwtToken ? <Login /> : <Navigate to="/my-stats/overview" />
+            }
           />
           <Route
-            path="/tracks"
+            path="/my-stats/tracks"
             element={jwtToken ? <Tracks /> : <Navigate to="/login" />}
           />
           <Route
-            path="/artists"
+            path="/my-stats/artists"
             element={jwtToken ? <Artists /> : <Navigate to="/login" />}
           />
           <Route
-            path="/albums"
+            path="/my-stats/albums"
             element={jwtToken ? <Albums /> : <Navigate to="/login" />}
           />
           <Route
-            path="/genres"
+            path="/my-stats/genres"
             element={jwtToken ? <Genres /> : <Navigate to="/login" />}
           />
         </Routes>
