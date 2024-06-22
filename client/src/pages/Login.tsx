@@ -3,7 +3,7 @@ import login from "../assets/login.svg";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
 import axios from "axios";
-import { setJwtToken } from "../redux/authSlice";
+import { setAuthTokens, setJwtToken } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -13,10 +13,8 @@ const Login = () => {
   const code = query.get("code") as string;
   console.log("CODE URL : ", code);
   useEffect(() => {
-    if (code) {
       fetchCode();
-    }
-  }, []);
+  }, [code, navigate, dispatch]);
 
   const fetchCode = async () => {
     try {
@@ -24,8 +22,9 @@ const Login = () => {
       const response = await axios.get(
         `http://localhost:3000/callback?code=${code}`
       );
-      console.log("Response Data : ", response.data);
-      dispatch(setJwtToken(response.data.jwtToken));
+
+      dispatch(setAuthTokens(response.data));
+      dispatch(setJwtToken(response.data.jwtToken))
     } catch (error: any) {
       console.error(
         "Error fetching access token:",

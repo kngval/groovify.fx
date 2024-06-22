@@ -4,29 +4,23 @@ import axios from "axios";
 
 interface TrackStructure {
   items:
-    | [
-        {
-          album: {
-            images: [
-              {
-                url: string;
-              }
-            ];
-          };
-          artists: [
-            {
-              external_urls: {
-                spotify: string;
-              };
-              name: string;
-            }
-          ];
+    | {
+        album: {
+          images: {
+            url: string;
+          }[];
+        };
+        artists: {
           external_urls: {
             spotify: string;
           };
           name: string;
-        }
-      ]
+        }[];
+        external_urls: {
+          spotify: string;
+        };
+        name: string;
+      }[]
     | null;
 }
 
@@ -43,24 +37,26 @@ const initialState: TrackState = {
 export const fetchTopTracks = createAsyncThunk(
   "api/tracks",
 
-  async (_, { getState, rejectWithValue }) => {
+  async (
+    { time_range, limit }: { time_range: string; limit: string },
+    { getState, rejectWithValue }
+  ) => {
     const state = getState() as RootState;
     const jwtToken = state.auth.jwtToken;
-    console.log("TOKEN FN : ", jwtToken);
     if (!jwtToken) {
       rejectWithValue("No JWT present");
     }
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/top-tracks?time_range=short_term&limit=50&offset=0`,
+        `http://localhost:3000/api/top-tracks?time_range=${time_range}&limit=${limit}&offset=0`,
         {
           headers: {
             Authorization: `Bearer ${jwtToken}`,
           },
         }
       );
-      console.log("Top Tracks : ", response.data);
-      return response.data;
+      console.log("Top Tracks : ", response.data.data.items);
+      return response.data.data as TrackStructure;
     } catch (error) {
       console.error(error);
       throw error;

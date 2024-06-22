@@ -25,17 +25,12 @@ export const authenticateToken = async (
 
   if (authHeader && authHeader.startsWith("Bearer")) {
     const token = authHeader.split(" ")[1];
-    console.log(req.headers);
     if (token) {
-      console.log("ENCODED TOKEN : ", req.headers);
       jwt.verify(token, jwt_secret, (err, decoded) => {
         if (err) {
           return res.status(403);
         }
-        console.log("DECODED TOKEN STRUCTURE : ", decoded);
         req.user = decoded as User;
-
-        console.log("REQUEST HEADER : ", req.user);
         next();
       });
     } else {

@@ -2,7 +2,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useEffect, useState } from "react";
-import { checkTokenExpiry, isTokenExpired } from "../utils/token";
 import { Profile } from "../types/profile.types";
 import { CurrentlyPlaying } from "../types/currentlyPlaying.types";
 import { FaSpotify } from "react-icons/fa6";
@@ -14,11 +13,8 @@ const Header = () => {
     useState<CurrentlyPlaying | null>(null);
   const location = useLocation();
   const jwtToken = useSelector((state: RootState) => state.auth.jwtToken);
-  if (jwtToken) {
-    console.log("TOKEN EXP : ", isTokenExpired(jwtToken));
-  }
+  
   useEffect(() => {
-    checkTokenExpiry();
     fetchProfile();
     fetchCurrentlyPlaying();
   }, []);

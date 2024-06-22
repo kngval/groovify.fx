@@ -6,9 +6,9 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
 
 const Overview = () => {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    dispatch(fetchTopTracks())
+    dispatch(fetchTopTracks({ time_range: "short_term", limit: "5" }));
   }, []);
 
   return (
