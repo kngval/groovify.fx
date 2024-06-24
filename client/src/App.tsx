@@ -11,7 +11,7 @@ import Genres from "./pages/Genres";
 import Header from "./components/Header";
 import { useEffect } from "react";
 import axios from "axios";
-import { setAuthTokens } from "./redux/authSlice";
+import { setAuthTokens, decrementExpiresIn } from "./redux/authSlice";
 
 function App() {
   const { jwtToken, refresh_token, expires_at } = useSelector(
@@ -20,7 +20,6 @@ function App() {
   console.log("ref token : ", refresh_token);
   const dispatch = useDispatch<AppDispatch>();
 
-  // Log authentication state changes
   useEffect(() => {
     console.log("Auth State: ", { jwtToken, refresh_token, expires_at });
   }, [jwtToken, refresh_token, expires_at]);
@@ -29,26 +28,19 @@ function App() {
   const refreshAccessToken = async () => {
     try {
       console.log("Running refreshAccessToken function");
-      console.log("token state in refAccTok : ", refresh_token)
-      const res = await axios.get(
-        `http://localhost:3000/refresh-token?refresh_token=${refresh_token}`,
-        {
-          headers: {
-            Authorization: `Bearer ${jwtToken}`,
-          },
-        }
-      );
-      if (res) {
-        const { refresh_token, expires_in } = res.data;
-        console.log("NEW TOKENS : ", res.data);
-        const expires_at = Date.now() + expires_in * 1000;
-        // Dispatch action to update tokens in Redux store
-        dispatch(
-          setAuthTokens({
-            refresh_token: refresh_token,
-            expires_in: expires_at,
-          })
+      if (refresh_token) {
+        console.log("token state in refAccTok : ", refresh_token);
+        const res = await axios.get(
+          `http://localhost:3000/refresh-token?refresh_token=${refresh_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          }
         );
+        if (res) {
+          console.log(res.data);
+        }
       }
     } catch (error) {
       console.error(error);
@@ -57,17 +49,22 @@ function App() {
 
   // UseEffect to set timeout for token refresh
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      refreshAccessToken(); // Call refreshAccessToken function after 3 seconds
-    }, 3000); // Refresh every 3 seconds for testing purposes
-    return () => clearTimeout(timeout); // Cleanup function to clear timeout
-  }, [refresh_token, jwtToken, dispatch]); // Dependencies: refresh_token, jwtToken, dispatch
+    if (expires_at) {
+      const interval = setInterval(() => {
+        dispatch(decrementExpiresIn());
+      }, 1000);
+      if (expires_at <= 20) {
+        refreshAccessToken();
+      }
+      return () => clearInterval(interval); // Cleanup function to clear timeout
+    }
+  }, [expires_at, refresh_token, jwtToken, dispatch]);
 
   return (
     <>
       <BrowserRouter>
         <Navbar />
-        {jwtToken ? <Header /> : <Navigate to="/login" />}
+        <Header />
         <Routes>
           <Route
             path="/"

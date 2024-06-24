@@ -11,6 +11,10 @@ export default {
       colors: {
         customLightBlue: "#6CA9CE",
         customBlue: "#0E1D35",
+        customGray: "#586471",
+      },
+      fontSize: {
+        xxs: "10px",
       },
     },
   },

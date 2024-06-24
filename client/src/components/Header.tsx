@@ -13,11 +13,14 @@ const Header = () => {
     useState<CurrentlyPlaying | null>(null);
   const location = useLocation();
   const jwtToken = useSelector((state: RootState) => state.auth.jwtToken);
-  
+  const navigate = useNavigate();
+
   useEffect(() => {
-    fetchProfile();
-    fetchCurrentlyPlaying();
-  }, []);
+    if (jwtToken) {
+      fetchProfile();
+      fetchCurrentlyPlaying();
+    }
+  }, [jwtToken]);
   const fetchProfile = async (): Promise<Profile> => {
     try {
       const res = await axios.get("http://localhost:3000/api/profile", {
@@ -38,7 +41,6 @@ const Header = () => {
     }
   };
 
-  const navigate = useNavigate();
   function navTo(endpoint: string): void {
     navigate(`/my-stats/${endpoint}`);
   }
@@ -66,7 +68,11 @@ const Header = () => {
     }
   };
   return (
-    <div className="relative bg-customBlue px-4 grid place-items-center">
+    <div
+      className={`relative ${
+        !jwtToken ? "hidden" : "block"
+      } bg-customBlue px-4 grid place-items-center`}
+    >
       <div className="wrapper w-[80%] lg:w-[900px] xl:w-[1200px]  relative pt-20">
         <div className="grid lg:grid-cols-2 gap-7 place-items-center  lg:flex lg:justify-between lg:items-center  m-auto">
           <div className="grid lg:grid-cols-2 text-center gap-11 ">

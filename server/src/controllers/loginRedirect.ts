@@ -79,7 +79,6 @@ export const callback = async (req: Request, res: Response) => {
           email: userProfile.data.email,
           display_name: userProfile.data.display_name,
           accessToken: access_token,
-          refreshToken: refresh_token,
         },
         jwt_secret,
         {
@@ -96,7 +95,7 @@ export const callback = async (req: Request, res: Response) => {
     console.error(
       "Token Exchange Error: ",
       error.response?.data || error.message
-    ); // Enhanced error logging
+    );
     return res
       .status(500)
       .json({ error: error.response?.data || error.message });
@@ -105,12 +104,12 @@ export const callback = async (req: Request, res: Response) => {
 
 export const refreshAccessToken = async (req: Request, res: Response) => {
   const { refresh_token } = req.query;
-  // let refresh_token =  localStorage.getItem("refresh_token");
   if (!refresh_token || typeof refresh_token !== "string") {
     return res.status(400).json({ error: "Invalid or missing refresh token" });
   }
+  console.log("refresh token in backend", refresh_token);
   try {
-    console.log('REFRESHING NEW TOKEN...')
+    console.log("REFRESHING NEW TOKEN...");
     const authOptions = {
       url: "https://accounts.spotify.com/api/token",
       method: "post",
@@ -123,26 +122,40 @@ export const refreshAccessToken = async (req: Request, res: Response) => {
       data: new URLSearchParams({
         grant_type: "refresh_token",
         refresh_token: refresh_token,
-        client_id: client_id as string
+        client_id: client_id as string,
       }).toString(),
     };
-
     const response = await axios(authOptions);
 
     if (response) {
-      const { access_token, refresh_token, expires_in } = response.data;
-      console.log("NEW ACCESS TOKEN : ", access_token)
-      console.log("NEW REFRESH TOKEN  : ", refresh_token)
-
+      console.log("NEW RES DATA: ", response.data);
+      const { access_token, expires_in } = response.data;
+      console.log("NEW ACCESS TOKEN : ", access_token);
       if (req.user) {
         req.user.accessToken = access_token as string;
-      }
-      console.log("NEW REQ USER: ", req.user);
-      console.log("NEW RES DATA: ", response.data);
+        const jwt_secret = process.env.JWT_SECRET as string;
 
-      return res.status(200).json({ access_token, refresh_token, expires_in });
-    } else {
-      return res.status(400).json({ error: "Failed to refresh access token" });
+        // Generate new JWT token with updated access token
+        const jwtToken = jwt.sign(
+          {
+            id: req.user.id,
+            email: req.user.email,
+            display_name: req.user.display_name,
+            accessToken: access_token,
+          },
+          jwt_secret,
+          {
+            expiresIn: "3d",
+          }
+        );
+        console.log("NEW REQ USER: ", req.user);
+
+        return res.status(200).json({ jwtToken, expires_in });
+      } else {
+        return res
+          .status(400)
+          .json({ error: "Failed to refresh access token" });
+      }
     }
   } catch (error: any) {
     console.error(

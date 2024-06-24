@@ -10,7 +10,7 @@ const initialState: AuthState = {
   refresh_token: localStorage.getItem("refresh_token"),
   jwtToken: localStorage.getItem("jwtToken"),
   expires_at: localStorage.getItem("expiresIn")
-    ? parseInt(localStorage.getItem("expiresIn")!)
+    ? parseInt(localStorage.getItem("expiresIn")!,10)
     : null,
 };
 
@@ -22,28 +22,30 @@ const authSlice = createSlice({
     //   state.accessToken = action.payload;
     //   localStorage.setItem("access_token", action.payload);
     // },
-    setAuthTokens: (
-      state,
-      action: PayloadAction<{ refresh_token: string; expires_in: number }>
-    ) => {
-      const { expires_in, refresh_token } = action.payload;
-      state.expires_at = expires_in;
-      state.refresh_token = refresh_token;
+    setAuthTokens: (state, action: PayloadAction<number>) => {
+      state.expires_at = action.payload;
 
-      if (expires_in) localStorage.setItem("expiresIn", expires_in.toString());
-      if (refresh_token) localStorage.setItem("refresh_token", refresh_token);
+      if (action.payload)
+        localStorage.setItem("expiresIn", action.payload.toString());
     },
     setJwtToken: (state, action: PayloadAction<string>) => {
       state.jwtToken = action.payload;
       if (state.jwtToken) localStorage.setItem("jwtToken", action.payload);
     },
-    // decrementExpiresIn(state) {
-    //   if (state.expires_in && state.expires_in > 0) {
-    //     state.expires_in -= 1;
-    //   }
-    // },
+    setRefToken: (state, action: PayloadAction<{ refresh_token: string }>) => {
+      const { refresh_token } = action.payload;
+      state.refresh_token = refresh_token;
+      if (state.refresh_token)
+        localStorage.setItem("refresh_token", refresh_token);
+    },
+    decrementExpiresIn(state) {
+      if (state.expires_at && state.expires_at > 0) {
+        state.expires_at -= 1;
+        localStorage.setItem("expiresIn", state.expires_at.toString());
+      }
+    },
   },
 });
-export const { setAuthTokens, setJwtToken } =
+export const { setAuthTokens, setRefToken, decrementExpiresIn, setJwtToken } =
   authSlice.actions;
 export default authSlice.reducer;

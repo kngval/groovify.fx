@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.get("/login", loginRedirect);
 router.get("/callback", callback);
-router.get("/refresh-token",authenticateToken,refreshAccessToken)
+router.post("/refresh-token",authenticateToken,refreshAccessToken)
 
 export default router;
