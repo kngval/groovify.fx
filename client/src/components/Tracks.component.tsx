@@ -17,7 +17,7 @@ const Tracks = () => {
           </div>
           <div className="grid gap-2 px-5 w-[90%]">
             {trackItems.map((track, index) => (
-              <div className="flex gap-5  items-center">
+              <div className="flex gap-5  items-center" key={index}>
                 <div className="text-center break-all text-wrap text-customGray">
                   {index + 1}
                 </div>

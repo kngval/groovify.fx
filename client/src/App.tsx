@@ -1,65 +1,30 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "./redux/store";
+import { useSelector } from "react-redux";
+import { RootState } from "./redux/store";
 import Overview from "./pages/Overview";
 import Tracks from "./pages/Tracks";
 import Artists from "./pages/Artists";
 import Albums from "./pages/Albums";
 import Genres from "./pages/Genres";
 import Header from "./components/Header";
+import { useTokenRefresh } from "./hooks/refresh.hooks";
 import { useEffect } from "react";
-import axios from "axios";
-import { setAuthTokens, decrementExpiresIn } from "./redux/authSlice";
 
 function App() {
-  const { jwtToken, refresh_token, expires_at } = useSelector(
-    (state: RootState) => state.auth
-  );
-  console.log("ref token : ", refresh_token);
-  const dispatch = useDispatch<AppDispatch>();
+  const { jwtToken } = useSelector((state: RootState) => state.auth);
+  const refreshAccessToken = useTokenRefresh();
 
   useEffect(() => {
-    console.log("Auth State: ", { jwtToken, refresh_token, expires_at });
-  }, [jwtToken, refresh_token, expires_at]);
-
-  // Function to refresh access token
-  const refreshAccessToken = async () => {
-    try {
-      console.log("Running refreshAccessToken function");
-      if (refresh_token) {
-        console.log("token state in refAccTok : ", refresh_token);
-        const res = await axios.get(
-          `http://localhost:3000/refresh-token?refresh_token=${refresh_token}`,
-          {
-            headers: {
-              Authorization: `Bearer ${jwtToken}`,
-            },
-          }
-        );
-        if (res) {
-          console.log(res.data);
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // UseEffect to set timeout for token refresh
-  useEffect(() => {
-    if (expires_at) {
+    if (jwtToken) {
+      const refreshTimer = 15 * 60 * 1000; //15 minutes
       const interval = setInterval(() => {
-        dispatch(decrementExpiresIn());
-      }, 1000);
-      if (expires_at <= 20) {
         refreshAccessToken();
-      }
-      return () => clearInterval(interval); // Cleanup function to clear timeout
+      }, refreshTimer);
+      return () => clearInterval(interval);
     }
-  }, [expires_at, refresh_token, jwtToken, dispatch]);
-
+  }, [jwtToken, refreshAccessToken]);
   return (
     <>
       <BrowserRouter>

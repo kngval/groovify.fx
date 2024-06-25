@@ -3,7 +3,7 @@ import login from "../assets/login.svg";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
 import axios from "axios";
-import { setAuthTokens, setJwtToken, setRefToken } from "../redux/authSlice";
+import { setJwtToken, setRefToken } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -25,9 +25,8 @@ const Login = () => {
         `http://localhost:3000/callback?code=${code}`
       );
 
-      dispatch(setAuthTokens(response.data.expires_in));
-      dispatch(setRefToken(response.data));
       dispatch(setJwtToken(response.data.jwtToken));
+      dispatch(setRefToken(response.data.refresh_token));
     } catch (error: any) {
       console.error(
         "Error fetching access token:",

@@ -19,6 +19,9 @@ const Header = () => {
     if (jwtToken) {
       fetchProfile();
       fetchCurrentlyPlaying();
+      const intervalId = setInterval(fetchCurrentlyPlaying, 60000);
+
+      return () => clearInterval(intervalId);
     }
   }, [jwtToken]);
   const fetchProfile = async (): Promise<Profile> => {
@@ -115,10 +118,11 @@ const Header = () => {
                       {currentlyPlaying?.name}
                     </a>
                     <div>
-                      {currentlyPlaying?.album.artists.map((a) => (
+                      {currentlyPlaying?.album.artists.map((a,index) => (
                         <a
                           href={a.external_urls.spotify}
                           className="text-xs text-customBlue"
+                          key={index}
                         >
                           {a.name !==
                           currentlyPlaying.album.artists[

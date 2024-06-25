@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
 import trackReducer from "./tracks";
+import artistReducer from "./artists"
 const store = configureStore({
   reducer: {
     auth: authReducer,
     tracks: trackReducer,
+    artists: artistReducer
   },
 });
 
