@@ -35,11 +35,8 @@ export const refreshAccessToken = async (req: Request, res: Response) => {
     if (response) {
       const { access_token, expires_in } = response.data;
       console.log("New access token : ", access_token);
-      if (req.user) {
-        req.user.accessToken = access_token;
-        
-    }
-    console.log("NEW REQ.USER ",req.user)
+
+      console.log("NEW REQ.USER ", req.user);
       res.status(200).json({ access_token, expires_in });
     }
   } catch (error: any) {

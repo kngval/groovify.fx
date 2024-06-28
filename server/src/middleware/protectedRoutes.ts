@@ -1,17 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { User } from "../types";
+import { User } from "../types/types";
 const jwt_secret = process.env.JWT_SECRET as string;
 
 declare global {
   namespace Express {
     interface Request {
-      user?: {
-        id: string;
-        email: string;
-        display_name: string;
-        accessToken: string;
-      };
+      user: User;
     }
   }
 }
@@ -28,7 +23,7 @@ export const authenticateToken = async (
     if (token) {
       jwt.verify(token, jwt_secret, (err, decoded) => {
         if (err) {
-          return res.status(403).json({error : "Forbidden"});
+          return res.status(403).json({ error: "Forbidden" });
         }
         req.user = decoded as User;
         next();

@@ -10,6 +10,7 @@ export const useTokenRefresh = () => {
   const refreshAccessToken = async () => {
     try {
       if (refreshToken) {
+        console.log('REFRESHING TOKEN FRONTEND...')
         const response = await axios.post(
           "http://localhost:3000/refresh_token",
           {

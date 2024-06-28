@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 
 export const fetchProfile = async (req: Request, res: Response) => {
-  const accessToken = req.user?.accessToken;
+  const accessToken = req.user.accessToken;
+  console.log("ACCESS TOKEN IN REQ,USER PROFILE: ", accessToken);
+
   if (!accessToken) {
     return res.status(401).json({ error: "Access token not found" });
   }
@@ -23,8 +25,10 @@ export const fetchProfile = async (req: Request, res: Response) => {
 };
 
 export const fetchCurrentlyPlaying = async (req: Request, res: Response) => {
-  const accessToken = req.user?.accessToken;
-  console.log('ACCESS TOKEN IN REQ,USER CURRENTLY PLAYING: ',accessToken)
+  // const accessToken = req.session.user?.accessToken;
+  const accessToken = req.user.accessToken;
+
+  // console.log("ACCESS TOKEN IN REQ,USER CURRENTLY PLAYING: ", accessToken);
   if (accessToken) {
     try {
       const response = await fetch(
@@ -51,7 +55,8 @@ export const fetchCurrentlyPlaying = async (req: Request, res: Response) => {
 
 export const fetchTopTracks = async (req: Request, res: Response) => {
   const { limit, offset, time_range } = req.query;
-  const accessToken = req.user?.accessToken;
+  // const accessToken = req.session.user?.accessToken;
+  const accessToken = req.user.accessToken;
 
   if (!accessToken) {
     return res.status(400).json({ error: "No access token provided" });
@@ -77,7 +82,9 @@ export const fetchTopTracks = async (req: Request, res: Response) => {
 
 export const fetchTopArists = async (req: Request, res: Response) => {
   const { time_range, offset, limit } = req.query;
-  const accessToken = req.user?.accessToken;
+  // const accessToken = req.session.user?.accessToken;
+  const accessToken = req.user.accessToken;
+
   try {
     const response = await fetch(
       `https://api.spotify.com/v1/me/top/artists?time_range=${time_range}&offset=${offset}&limit=${limit}`,
