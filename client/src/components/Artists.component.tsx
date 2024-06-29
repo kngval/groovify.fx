@@ -11,12 +11,12 @@ const ArtistsComponent = () => {
       {artistsItems && artistsItems.length > 0 && (
         <div className="grid place-items-center w-[90%] gap-[9rem] py-12">
           <div className="top-3 flex items-center relative">
-            <img src={artistsItems[1].images[2].url} className="w-[150px] rounded-full" />
+            <img src={artistsItems[1].images[2].url} className="w-[150px] h-[150px] rounded-full" />
             <img
               src={artistsItems[0].images[2].url}
-              className="w-[150px] absolute -bottom-[4rem] left-[4.7rem] rounded-full"
+              className="w-[150px] h-[150px] absolute -bottom-[4rem] left-[4.7rem] rounded-full"
             />
-            <img src={artistsItems[2].images[2].url} className="w-[150px] rounded-full" />
+            <img src={artistsItems[2].images[2].url} className="w-[150px] h-[150px] rounded-full" />
           </div>
           <div className="grid gap-2 px-5 w-[90%]">
             {artistsItems.map((artist, index) => (

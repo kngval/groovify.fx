@@ -42,13 +42,13 @@ export const fetchTopTracks = createAsyncThunk(
     { getState, rejectWithValue }
   ) => {
     const state = getState() as RootState;
-    const jwtToken = state.auth.jwtToken;
-    if (!jwtToken) {
-      rejectWithValue("No JWT present");
+    const {jwtToken,accessToken} = state.auth;
+    if (!jwtToken && accessToken) {
+      rejectWithValue("No JWT & Access Token present");
     }
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/top-tracks?time_range=${time_range}&limit=${limit}&offset=0`,
+        `http://localhost:3000/api/top-tracks?time_range=${time_range}&limit=${limit}&offset=0&accessToken=${accessToken}`,
         {
           headers: {
             Authorization: `Bearer ${jwtToken}`,

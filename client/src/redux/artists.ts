@@ -39,13 +39,13 @@ export const fetchTopArtists = createAsyncThunk(
     { getState, rejectWithValue }
   ) => {
     const state = getState() as RootState;
-    const jwtToken = state.auth.jwtToken;
+    const {jwtToken,accessToken} = state.auth;
     if (!jwtToken) {
       rejectWithValue("No JWT Present.");
     }
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/top-artists?time_range=${time_range}&offset=${offset}&limit=${limit}`,
+        `http://localhost:3000/api/top-artists?time_range=${time_range}&offset=${offset}&limit=${limit}&accessToken=${accessToken}`,
         {
           headers: {
             Authorization: `Bearer ${jwtToken}`,

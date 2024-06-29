@@ -5,7 +5,7 @@ dotenv.config();
 
 const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
-
+//REFRESH TOKEN CONTROLLERS
 export const refreshAccessToken = async (req: Request, res: Response) => {
   console.log("ENTERING REFRESH TOKEN...");
   const { refreshToken } = req.body;
@@ -34,10 +34,8 @@ export const refreshAccessToken = async (req: Request, res: Response) => {
 
     if (response) {
       const { access_token, expires_in } = response.data;
-      console.log("New access token : ", access_token);
-
-      console.log("NEW REQ.USER ", req.user);
-      res.status(200).json({ access_token, expires_in });
+      console.log("NEW BACKEND TOKENS : ", response.data);
+      return res.status(200).json({ access_token, expires_in });
     }
   } catch (error: any) {
     console.error(

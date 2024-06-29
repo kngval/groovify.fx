@@ -13,18 +13,21 @@ import { useTokenRefresh } from "./hooks/refresh.hooks";
 import { useEffect } from "react";
 
 function App() {
-  const { jwtToken } = useSelector((state: RootState) => state.auth);
+  const { jwtToken,accessToken } = useSelector((state: RootState) => state.auth);
   const refreshAccessToken = useTokenRefresh();
 
+  useEffect(() => {
+    console.log("Access Token Updated",accessToken)
+  },[accessToken])
   useEffect(() => {
     if (jwtToken) {
       const refreshTimer = 15 * 60 * 1000; //15 minutes
       const interval = setInterval(() => {
         refreshAccessToken();
-      }, refreshTimer);
+      }, 15000);
       return () => clearInterval(interval);
     }
-  }, [jwtToken, refreshAccessToken]);
+  }, [jwtToken, refreshAccessToken,accessToken]);
   return (
     <>
       <BrowserRouter>

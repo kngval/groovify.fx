@@ -3,10 +3,14 @@ import jwt from "jsonwebtoken";
 import { User } from "../types/types";
 const jwt_secret = process.env.JWT_SECRET as string;
 
+import dotenv from "dotenv";
+dotenv.config();
+
 declare global {
   namespace Express {
     interface Request {
       user: User;
+      // spotifyUser :
     }
   }
 }
@@ -21,11 +25,10 @@ export const authenticateToken = async (
   if (authHeader && authHeader.startsWith("Bearer")) {
     const token = authHeader.split(" ")[1];
     if (token) {
-      jwt.verify(token, jwt_secret, (err, decoded) => {
+      jwt.verify(token, jwt_secret, (err) => {
         if (err) {
           return res.status(403).json({ error: "Forbidden" });
         }
-        req.user = decoded as User;
         next();
       });
     } else {

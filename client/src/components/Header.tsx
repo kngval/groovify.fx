@@ -12,7 +12,7 @@ const Header = () => {
   const [currentlyPlaying, setCurrentlyPlaying] =
     useState<CurrentlyPlaying | null>(null);
   const location = useLocation();
-  const jwtToken = useSelector((state: RootState) => state.auth.jwtToken);
+  const {jwtToken,accessToken} = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,10 +23,10 @@ const Header = () => {
 
       return () => clearInterval(intervalId);
     }
-  }, [jwtToken]);
+  }, [jwtToken, accessToken]);
   const fetchProfile = async (): Promise<Profile> => {
     try {
-      const res = await axios.get("http://localhost:3000/api/profile", {
+      const res = await axios.get(`http://localhost:3000/api/profile?accessToken=${accessToken}`, {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },
@@ -51,7 +51,7 @@ const Header = () => {
   const fetchCurrentlyPlaying = async (): Promise<CurrentlyPlaying> => {
     try {
       const res = await axios.get(
-        "http://localhost:3000/api/currently-playing",
+        `http://localhost:3000/api/currently-playing?accessToken=${accessToken}`,
         {
           headers: {
             Authorization: `Bearer ${jwtToken}`,

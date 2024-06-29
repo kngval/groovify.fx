@@ -63,7 +63,6 @@ export const callback = async (req: Request, res: Response) => {
     const response = await axios(authOptions);
     if (response) {
       const { access_token, refresh_token, expires_in } = response.data;
-      console.log("Exp type :", typeof response.data.expires_in);
       console.log("BACKEND RESPONSE :", response.data);
 
       const userProfile = await axios.get("https://api.spotify.com/v1/me", {
