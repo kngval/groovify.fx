@@ -7,5 +7,5 @@ const router = express.Router();
 router.get("/login", loginRedirect);
 router.get("/callback", callback);
 router.post("/refresh_token", authenticateToken, refreshAccessToken);
-router.get("/", greet);
+router.get("/greet", greet);
 export default router;
