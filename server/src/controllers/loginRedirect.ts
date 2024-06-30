@@ -103,5 +103,5 @@ export const callback = async (req: Request, res: Response) => {
 };
 
 export const greet = (_req: Request, res: Response) => {
-  res.send("HELLOOOOOOOOOOOOOOOOOOOO");
+  res.json("HELLOOOOOOOOOOOOOOOOOOOO");
 };

@@ -6,7 +6,8 @@
     "start": "nodemon ./dist/api/index.js",
     "dev": "nodemon ./src/api/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "vercel-build": "echo hello"
   },
   "keywords": [],
   "author": "",
