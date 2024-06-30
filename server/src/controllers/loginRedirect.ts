@@ -78,7 +78,7 @@ export const callback = async (req: Request, res: Response) => {
           email: userProfile.data.email,
           display_name: userProfile.data.display_name,
           accessToken: access_token,
-          refreshToken : refresh_token
+          refreshToken: refresh_token,
         },
         jwt_secret,
         {
@@ -102,3 +102,6 @@ export const callback = async (req: Request, res: Response) => {
   }
 };
 
+export const greet = (_req: Request, res: Response) => {
+  res.send("HELLOOOOOOOOOOOOOOOOOOOO");
+};
