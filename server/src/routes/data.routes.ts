@@ -14,5 +14,5 @@ router.get("/currently-playing", fetchCurrentlyPlaying);
 router.get("/top-tracks", fetchTopTracks);
 router.get("/top-artists", fetchTopArists);
 router.get("/top-genres", fetchTopGenres);
-
+router.get("/greet",)
 export default router;
