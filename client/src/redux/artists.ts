@@ -45,7 +45,7 @@ export const fetchTopArtists = createAsyncThunk(
     }
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/top-artists?time_range=${time_range}&offset=${offset}&limit=${limit}&accessToken=${accessToken}`,
+        `${import.meta.env.VITE_URL}/api/top-artists?time_range=${time_range}&offset=${offset}&limit=${limit}&accessToken=${accessToken}`,
         {
           headers: {
             Authorization: `Bearer ${jwtToken}`,

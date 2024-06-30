@@ -2,8 +2,8 @@ import express from "express";
 import cors from "cors";
 import session from "express-session";
 import dotenv from "dotenv";
-import loginRoute from "./routes/loginRoute";
-import dataRoute from "./routes/data.routes";
+import loginRoute from "../routes/loginRoute";
+import dataRoute from "../routes/data.routes";
 dotenv.config();
 
 const server = express();
@@ -20,6 +20,6 @@ server.use(express.json());
 //ROUTES
 server.use("/", loginRoute);
 server.use("/api", dataRoute);
-server.listen(3000, () => {
+server.listen(3001, () => {
   console.log("Server Listening...");
 });

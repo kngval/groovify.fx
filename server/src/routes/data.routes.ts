@@ -4,6 +4,7 @@ import {
   fetchProfile,
   fetchTopArists,
   fetchTopTracks,
+  fetchTopGenres
 } from "../controllers/data.controller";
 import { authenticateToken } from "../middleware/protectedRoutes";
 const router = express.Router();
@@ -12,4 +13,6 @@ router.get("/profile", fetchProfile);
 router.get("/currently-playing", fetchCurrentlyPlaying);
 router.get("/top-tracks", fetchTopTracks);
 router.get("/top-artists", fetchTopArists);
+router.get("/top-genres", fetchTopGenres);
+
 export default router;

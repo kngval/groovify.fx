@@ -102,3 +102,44 @@ export const fetchTopArists = async (req: Request, res: Response) => {
     return res.status(500).json(error);
   }
 };
+
+export const fetchTopGenres = async (req: Request, res: Response) => {
+  const { time_range, limit, offset, accessToken } = req.query;
+  try {
+    const response = await fetch(
+      `https://api.spotify.com/v1/me/top/artists?time_range=${time_range}&offset=${offset}&limit=${limit}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    const data = await response.json();
+
+    const topArtists = data.items;
+    const genreCounts: {
+      [key: string]: number;
+    } = {};
+
+    topArtists.forEach((artist: any) => {
+      artist.genres.forEach((genre: string) => {
+        if (genreCounts[genre]) {
+          genreCounts[genre]++;
+        } else {
+          genreCounts[genre] = 1;
+        }
+      });
+    });
+    // console.log("GENRE COUNTS",Object.entries(genreCounts).sort((a,b) => b[1] - a[1]))
+    const sortedGenres = Object.entries(genreCounts).sort(
+      (a, b) => b[1] - a[1]
+    );
+
+    return data
+      ? res.status(200).json({ sortedGenres })
+      : res.status(400).json({ error: "No data found" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json(error);
+  }
+};

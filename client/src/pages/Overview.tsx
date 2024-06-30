@@ -1,18 +1,40 @@
 import Tracks from "../components/Tracks.component";
 import { useEffect } from "react";
 import { fetchTopTracks } from "../redux/tracks";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../redux/store";
 import { fetchTopArtists } from "../redux/artists";
 import ArtistsComponent from "../components/Artists.component";
+import axios from "axios";
 
 const Overview = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(fetchTopTracks({ time_range: "short_term", limit: "10" }));
-    dispatch(fetchTopArtists({time_range: "short_term",offset:0,limit:10}))
-    fetch;
+    dispatch(
+      fetchTopArtists({ time_range: "short_term", offset: 0, limit: 10 })
+    );
+    fetchGenres();
   }, []);
+  const { accessToken, jwtToken } = useSelector(
+    (state: RootState) => state.auth
+  );
+  const fetchGenres = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/top-genres?time_range=short_term&offset=0&limit=10&accessToken=${accessToken}`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      );
+
+      console.log("TOP GENRES : ", response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
