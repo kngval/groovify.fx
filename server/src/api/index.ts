@@ -22,6 +22,6 @@ server.use(express.json());
 server.use("/", loginRoute);
 server.use("/api", dataRoute);
 server.get("/api/greet", greet);
-server.listen(3001, () => {
+server.listen(3000, () => {
   console.log("Server Listening...");
 });
