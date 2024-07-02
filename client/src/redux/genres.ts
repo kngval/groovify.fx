@@ -3,7 +3,7 @@ import { RootState } from "./store";
 import axios from "axios";
 
 interface GenresStructure {
-  sortedGenres: [[string, number][]];
+  sortedGenres: [string, number][];
 }
 
 interface GenresState {
@@ -14,7 +14,7 @@ const initialState: GenresState = {
   genres: null,
 };
 
-const fetchTopGenres = createAsyncThunk(
+export const fetchTopGenres = createAsyncThunk(
   "api/genres",
   async (
     {
@@ -22,40 +22,43 @@ const fetchTopGenres = createAsyncThunk(
       limit,
       offset,
     }: { time_range: string; limit: number; offset: number },
-    { getState,rejectWithValue }
+    { getState, rejectWithValue }
   ) => {
     const state = getState() as RootState;
-    const {jwtToken,accessToken} = state.auth
+    const { jwtToken, accessToken } = state.auth;
 
-    if(!jwtToken || accessToken){
-      rejectWithValue("No JWT or Access Token Present")
+    if (!jwtToken || accessToken) {
+      rejectWithValue("No JWT or Access Token Present");
     }
     try {
-      const res = await axios.get(`${import.meta.env.VITE_URL}/api/top-genres?time_range=${time_range}&limit=${limit}&offset=${offset}&accessToken=${accessToken}`, {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`
+      const res = await axios.get(
+        `${
+          import.meta.env.VITE_URL
+        }/api/top-genres?time_range=${time_range}&limit=${limit}&offset=${offset}&accessToken=${accessToken}`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
         }
-      })
-      console.log("TOP GENRES : ",res.data.data)
-      return res.data.data as GenresStructure;
+      );
+      console.log("TOP GENRES : ", res.data);
+      return res.data as GenresStructure;
     } catch (error) {
       console.error(error);
       throw error;
     }
-
   }
 );
 
 const genreSlice = createSlice({
-  name:"genres",
+  name: "genres",
   initialState,
-  reducers:{},
+  reducers: {},
   extraReducers(builder) {
-    builder.addCase(fetchTopGenres.fulfilled,(state,action) => {
-      state.genres = action.payload
-    })
+    builder.addCase(fetchTopGenres.fulfilled, (state, action) => {
+      state.genres = action.payload;
+    });
   },
-})
-
+});
 
 export default genreSlice.reducer;
