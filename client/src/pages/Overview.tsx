@@ -17,7 +17,7 @@ const Overview = () => {
       fetchTopArtists({ time_range: "short_term", offset: 0, limit: 10 })
     );
     dispatch(
-      fetchTopGenres({ time_range: "short_term", offset: 0, limit: 50 })
+      fetchTopGenres({ time_range: "short_term", offset: 0, limit: 5 })
     );
   }, []);
   // const { accessToken, jwtToken } = useSelector(
@@ -25,7 +25,7 @@ const Overview = () => {
   // );
 
   const wrapperClass =
-    "wrapper grid grid-cols-1 lg:grid-cols-2 lg:w-[1000px] gap-[10rem] lg:gap-5 w-full sm:w-[600px] md:w-[700px] xl:w-[1200px]  mt-[12rem]";
+    "wrapper grid grid-cols-1 lg:grid-cols-2 lg:w-[1000px] gap-12 lg:gap-5 w-full sm:w-[600px] md:w-[700px] xl:w-[1200px]  mt-[12rem]";
   const titleClass = "text-2xl font-bold text-center mb-6 lg:text-start";
   return (
     <div>

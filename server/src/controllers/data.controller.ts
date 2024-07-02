@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { GenresState } from "../types/Genres";
 
 //DATA CONTROLLERS
 
@@ -121,7 +122,7 @@ export const fetchTopGenres = async (req: Request, res: Response) => {
       [key: string]: number;
     } = {};
 
-    topArtists.forEach((artist: any) => {
+    topArtists.forEach((artist: GenresState) => {
       artist.genres.forEach((genre: string) => {
         if (genreCounts[genre]) {
           genreCounts[genre]++;
