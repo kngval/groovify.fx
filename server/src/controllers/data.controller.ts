@@ -133,7 +133,7 @@ export const fetchTopGenres = async (req: Request, res: Response) => {
     });
     // console.log("GENRE COUNTS",Object.entries(genreCounts).sort((a,b) => b[1] - a[1]))
     const sortedGenres = Object.entries(genreCounts).sort(
-      (a, b) => b[1] - a[1]
+      (song, count) => count[1] - song[1]
     );
 
     return data
@@ -142,5 +142,72 @@ export const fetchTopGenres = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json(error);
+  }
+};
+
+export const fetchTopAlbums = async (req: Request, res: Response) => {
+  const { accessToken, time_range, limit, offset } = req.query;
+  if (!accessToken) {
+    return res.status(400).json({ error: "No access token provided" });
+  }
+  try {
+    const response = await fetch(
+      `https://api.spotify.com/v1/me/top/tracks?time_range=${time_range}&offset=${offset}&limit=${limit}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    const data = await response.json();
+    const topTracks = data.items;
+
+    const albumCounts = new Map<
+      string,
+      {
+        album: {
+          name: string;
+          id: string;
+          images: { url: string }[];
+          artists: { external_urls: { spotify: string }; name: string }[];
+        };
+        count: number;
+      }
+    >();
+
+    topTracks.forEach(
+      (track: {
+        album: {
+          name: string;
+          id: string;
+          images: { url: string }[];
+          artists: { external_urls: { spotify: string }; name: string }[];
+        };
+      }) => {
+        const album = track.album;
+        if (albumCounts.has(album.id)) {
+          albumCounts.get(album.id)!.count += 1;
+        } else {
+          albumCounts.set(album.id, { album: album, count: 1 });
+        }
+      }
+    );
+
+    const sortedAlbums = Array.from(albumCounts.values())
+      .sort((a, b) => b.count - a.count)
+      .map((item) => ({
+        name: item.album.name,
+        artist: item.album.artists.map((artist) => ({
+          name: artist.name,
+          link: artist.external_urls.spotify,
+        })),
+        images: item.album.images,
+      }));
+
+    return data
+      ? res.status(200).json({ sortedAlbums })
+      : res.status(400).json({ error: "No data found" });
+  } catch (error) {
+    return res.status(500).json({ error: "Error fetching User's Top Albums" });
   }
 };

@@ -3,11 +3,13 @@ import authReducer from "./authSlice";
 import trackReducer from "./tracks";
 import artistReducer from "./artists";
 import genreReducer from "./genres";
+import albumReducer from "./albums";
 const store = configureStore({
   reducer: {
     auth: authReducer,
     tracks: trackReducer,
     artists: artistReducer,
+    albums: albumReducer,
     genres: genreReducer,
   },
 });

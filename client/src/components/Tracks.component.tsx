@@ -9,17 +9,17 @@ const Tracks = () => {
   return (
     <div className="bg-customBlue rounded-lg flex justify-center">
       {trackItems && trackItems.length > 0 && (
-        <div className="grid place-items-center w-[90%]  py-12">
-          <div className="top-3 flex items-center relative mb-[9rem]">
+        <div className="grid  w-[80%]  py-12">
+          <div className="top-3 flex justify-center gap-2 items-center relative mb-[9rem]">
               <img src={trackItems[1].album.images[1].url}  className="w-[150px]"/>
-              <img src={trackItems[0].album.images[1].url} className="w-[150px] absolute -bottom-[4rem] left-[4.7rem]"/>
+              <img src={trackItems[0].album.images[1].url} className="w-[150px] absolute -bottom-[4rem] "/>
               <img src={trackItems[2].album.images[1].url} className="w-[150px]"/>
           </div>
-          <div className="grid gap-2 px-5 w-[90%] mb-12">
+          <div className="grid gap-2 px-5  mb-12">
             {trackItems.map((track, index) => (
-              <div className="flex gap-5  items-center" key={index}>
-                <div className="text-center break-all text-wrap text-customGray">
-                  {index + 1}
+              <div className="flex  items-center gap-5" key={index}>
+                <div className=" flex justify-center items-center text-customGray w-[20px]">
+                  <h1>{index + 1}</h1>
                 </div>
                 <img
                   src={track.album.images[2].url}
