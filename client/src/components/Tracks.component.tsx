@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { Link } from "react-router-dom";
 
 const TracksComponent = () => {
   const trackItems = useSelector(
@@ -9,7 +10,7 @@ const TracksComponent = () => {
   return (
     <div className="bg-customBlue rounded-lg flex justify-center">
       {trackItems && trackItems.length > 0 && (
-        <div className="grid  sm:w-[80%]  py-12">
+        <div className="grid w-[80%]  py-12">
           <div className="top-3 flex justify-center gap-2 items-center relative mb-[9rem]">
             <img
               src={trackItems[1].album.images[1].url}
@@ -57,9 +58,9 @@ const TracksComponent = () => {
               location.pathname === "/my-stats/tracks" ? "hidden" : "flex"
             } justify-center items-center`}
           >
-            <a href="/" className="text-customLightBlue">
+            <Link to="/my-stats/tracks" className="text-customLightBlue">
               See all
-            </a>
+            </Link>
           </div>
         </div>
       )}

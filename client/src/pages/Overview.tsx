@@ -26,12 +26,12 @@ const Overview = () => {
   }, []);
 
   const wrapperClass =
-    "wrapper grid grid-cols-1 lg:grid-cols-2 lg:w-[1000px] gap-[10rem] lg:gap-5 w-full sm:w-[600px] md:w-[700px] xl:w-[1200px]  ";
+    "wrapper grid grid-cols-1 lg:grid-cols-2 lg:w-[1000px] gap-[10rem] lg:gap-5 w-full sm:w-[600px] md:w-[700px] xl:w-[1200px] mb-[10rem] ";
   const titleClass = "text-2xl font-bold text-center mb-6 lg:text-start";
   return (
     <div>
       <div className="overview-contents grid place-items-center  mb-[10rem]">
-        <div className={wrapperClass}>
+        <div className={wrapperClass} >
           <div className="top-tracks">
             <h1 className={titleClass}>Top Tracks (4 weeks)</h1>
 
