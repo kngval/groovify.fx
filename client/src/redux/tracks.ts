@@ -38,7 +38,7 @@ export const fetchTopTracks = createAsyncThunk(
   "api/tracks",
 
   async (
-    { time_range, limit }: { time_range: string; limit: string },
+    { time_range, limit,offset }: { time_range: string; limit: number; offset:number },
     { getState, rejectWithValue }
   ) => {
     const state = getState() as RootState;
@@ -48,7 +48,7 @@ export const fetchTopTracks = createAsyncThunk(
     }
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_URL}/api/top-tracks?time_range=${time_range}&limit=${limit}&offset=0&accessToken=${accessToken}`,
+        `${import.meta.env.VITE_URL}/api/top-tracks?time_range=${time_range}&limit=${limit}&offset=${offset}&accessToken=${accessToken}`,
         {
           headers: {
             Authorization: `Bearer ${jwtToken}`,

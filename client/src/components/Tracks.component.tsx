@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
-const Tracks = () => {
+const TracksComponent = () => {
   const trackItems = useSelector(
     (state: RootState) => state.tracks.tracks?.items
   );
@@ -9,11 +9,20 @@ const Tracks = () => {
   return (
     <div className="bg-customBlue rounded-lg flex justify-center">
       {trackItems && trackItems.length > 0 && (
-        <div className="grid  w-[80%]  py-12">
+        <div className="grid  sm:w-[80%]  py-12">
           <div className="top-3 flex justify-center gap-2 items-center relative mb-[9rem]">
-              <img src={trackItems[1].album.images[1].url}  className="w-[150px]"/>
-              <img src={trackItems[0].album.images[1].url} className="w-[150px] absolute -bottom-[4rem] "/>
-              <img src={trackItems[2].album.images[1].url} className="w-[150px]"/>
+            <img
+              src={trackItems[1].album.images[1].url}
+              className="w-[150px]"
+            />
+            <img
+              src={trackItems[0].album.images[1].url}
+              className="w-[150px] absolute -bottom-[4rem] "
+            />
+            <img
+              src={trackItems[2].album.images[1].url}
+              className="w-[150px]"
+            />
           </div>
           <div className="grid gap-2 px-5  mb-12">
             {trackItems.map((track, index) => (
@@ -43,11 +52,19 @@ const Tracks = () => {
               </div>
             ))}
           </div>
-            <div className="flex justify-center items-center"><a href="/" className="text-customLightBlue">See all</a></div>
+          <div
+            className={`${
+              location.pathname === "/my-stats/tracks" ? "hidden" : "flex"
+            } justify-center items-center`}
+          >
+            <a href="/" className="text-customLightBlue">
+              See all
+            </a>
+          </div>
         </div>
       )}
     </div>
   );
 };
 
-export default Tracks;
+export default TracksComponent;
