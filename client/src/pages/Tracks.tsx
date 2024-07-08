@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import TracksComponent from "../components/Tracks.component";
 import { fetchTopTracks } from "../redux/tracks";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../redux/store";
 
 const Tracks = () => {
+  const tracks = useSelector((state: RootState) => state.tracks.tracks?.items);
   const dispatch = useDispatch<AppDispatch>();
   const [term, setTerm] = useState("short_term");
   const [limit, setLimit] = useState<number>(10);
 
   useEffect(() => {
     dispatch(fetchTopTracks({ limit: limit, offset: 0, time_range: term }));
-  }, [dispatch, term,limit]);
+  }, [dispatch, term, limit]);
 
   return (
     <div className="flex justify-center mb-[10rem]">

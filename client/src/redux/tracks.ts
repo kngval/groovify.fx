@@ -20,6 +20,7 @@ interface TrackStructure {
           spotify: string;
         };
         name: string;
+        duration_ms: number;
       }[]
     | null;
 }
