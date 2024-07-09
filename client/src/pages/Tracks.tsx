@@ -3,13 +3,29 @@ import TracksComponent from "../components/Tracks.component";
 import { fetchTopTracks } from "../redux/tracks";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
+import { calculateLength } from "../utils/calc";
 
 const Tracks = () => {
   const tracks = useSelector((state: RootState) => state.tracks.tracks?.items);
   const dispatch = useDispatch<AppDispatch>();
   const [term, setTerm] = useState("short_term");
   const [limit, setLimit] = useState<number>(10);
+  const [duration, setDuration] = useState({
+    lessThan4: 0,
+    greaterThan4: 0,
+  });
 
+  useEffect(() => {
+    if (tracks && tracks.length > 0) {
+      let newDurations = { lessThan4: 0, greaterThan4: 0 };
+      tracks.forEach((item) => calculateLength(item.duration_ms, newDurations));
+      setDuration(newDurations);
+    }
+  }, [tracks,term,limit,dispatch]);
+
+  useEffect(() => {
+    console.log("Durations : ", duration);
+  }, [duration]);
   useEffect(() => {
     dispatch(fetchTopTracks({ limit: limit, offset: 0, time_range: term }));
   }, [dispatch, term, limit]);

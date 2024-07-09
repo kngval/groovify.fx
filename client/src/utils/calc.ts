@@ -9,6 +9,20 @@
     -return result
 
  */
-export function calculateLength(duration: number): number {
-  return Math.floor(duration / 60000);
+interface durations {
+  lessThan4: number;
+  greaterThan4: number;
+}
+
+export function calculateLength(
+  duration: number,
+  durationsObj: durations
+): durations {
+  const res = Math.floor(duration / 60000);
+  if (res < 4) {
+    durationsObj.lessThan4 += 1;
+  } else {
+    durationsObj.greaterThan4 += 1;
+  }
+  return durationsObj;
 }

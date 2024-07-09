@@ -12,7 +12,9 @@ const Header = () => {
   const [currentlyPlaying, setCurrentlyPlaying] =
     useState<CurrentlyPlaying | null>(null);
   const location = useLocation();
-  const {jwtToken,accessToken} = useSelector((state: RootState) => state.auth);
+  const { jwtToken, accessToken } = useSelector(
+    (state: RootState) => state.auth
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,13 +28,15 @@ const Header = () => {
   }, [jwtToken, accessToken]);
   const fetchProfile = async (): Promise<Profile> => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/profile?accessToken=${accessToken}`, {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      });
+      const res = await axios.get(
+        `http://localhost:3000/api/profile?accessToken=${accessToken}`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      );
       if (res && res.data && res.data.data) {
-        console.log(res.data.data);
         setProfile(res.data.data);
         return res.data.data as Profile;
       } else {
@@ -59,7 +63,6 @@ const Header = () => {
         }
       );
       if (res && res.data && res.data.data && res.data.data.item) {
-        console.log("CURRENTLY  : PLAYING", res.data.data.item);
         setCurrentlyPlaying(res.data.data.item);
         return res.data.data.item as CurrentlyPlaying;
       } else {
@@ -118,7 +121,7 @@ const Header = () => {
                       {currentlyPlaying?.name}
                     </a>
                     <div>
-                      {currentlyPlaying?.album.artists.map((a,index) => (
+                      {currentlyPlaying?.album.artists.map((a, index) => (
                         <a
                           href={a.external_urls.spotify}
                           className="text-xs text-customBlue"

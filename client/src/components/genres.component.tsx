@@ -13,7 +13,7 @@ const GenresComponent = () => {
       {genres && genres.length > 0 && (
         <div className="grid gap-5 w-[80%]">
           {genres.map((genre, index) => (
-            <div className="flex gap-5">
+            <div className="flex gap-5" key={index}>
               <div className="text-end w-[20px]">
                 <h1 className="text-customGray text-end font-bold">
                   {index + 1}

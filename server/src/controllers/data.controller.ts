@@ -30,7 +30,6 @@ export const fetchProfile = async (req: Request, res: Response) => {
 export const fetchCurrentlyPlaying = async (req: Request, res: Response) => {
   const { accessToken } = req.query;
 
-  console.log("ACCESS TOKEN IN REQ,USER CURRENTLY PLAYING: ", accessToken);
   if (accessToken) {
     try {
       const response = await fetch(
@@ -82,7 +81,6 @@ export const fetchTopTracks = async (req: Request, res: Response) => {
 
 export const fetchTopArists = async (req: Request, res: Response) => {
   const { time_range, offset, limit, accessToken } = req.query;
-  // const accessToken = req.session.user?.accessToken;
 
   try {
     const response = await fetch(
@@ -131,7 +129,6 @@ export const fetchTopGenres = async (req: Request, res: Response) => {
         }
       });
     });
-    // console.log("GENRE COUNTS",Object.entries(genreCounts).sort((a,b) => b[1] - a[1]))
     const sortedGenres = Object.entries(genreCounts).sort(
       (song, count) => count[1] - song[1]
     );

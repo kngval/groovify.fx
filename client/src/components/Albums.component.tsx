@@ -20,7 +20,7 @@ const AlbumsComponent = () => {
             <img src={albums[2].images[1].url} alt="" className="w-[150px]" />
           </div>
           {albums.map((album, index) => (
-            <div className="flex items-center">
+            <div className="flex items-center" >
               <div className="flex items-center justify-center w-[50px] ">
                 <h1 className="text-customGray">{index + 1}</h1>
               </div>
@@ -33,7 +33,7 @@ const AlbumsComponent = () => {
                 <div>
                   <h1>{album.name}</h1>
                   {album.artist.map((art, i) => (
-                    <span className="text-sm text-customGray break-all text-wrap">
+                    <span className="text-sm text-customGray break-all text-wrap" >
                       <a href={art.link}>{art.name}</a>
                       {i < album.artist.length - 1 && ", "}
                     </span>
