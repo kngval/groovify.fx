@@ -15,17 +15,27 @@ const Tracks = () => {
     lessThan4: 0,
     greaterThan4: 0,
   });
-
+  const [explicitness,setExplicitness] = useState({
+    clean:0,
+    explicit:0
+  })
   useEffect(() => {
     if (tracks && tracks.length > 0) {
       let newDurations = { lessThan4: 0, greaterThan4: 0 };
-      tracks.forEach((item) => calculateLength(item.duration_ms, newDurations));
+      let newExplicit = {clean:0, explicit:0}
+      tracks.forEach((item) => {
+        calculateLength(item.duration_ms, newDurations);
+        item.explicit === true ? newExplicit.explicit +=1 : newExplicit.clean +=1;
+      });
+      setExplicitness(newExplicit);
       setDuration(newDurations);
     }
   }, [tracks, term, limit, dispatch]);
 
   useEffect(() => {
     console.log("Durations : ", duration);
+    console.log("Explicitness : ", explicitness);
+
   }, [duration]);
   useEffect(() => {
     dispatch(fetchTopTracks({ limit: limit, offset: 0, time_range: term }));
@@ -136,17 +146,17 @@ const Tracks = () => {
                   </span>
 
                   <div className=" h-[10px] w-full">
-                    <div className="bg-customLightBlue rounded-full h-full"></div>
+                    <div style={{width : `${explicitness.clean > explicitness.explicit ? "100%" : `${explicitness.clean}%`}`}} className="bg-customLightBlue rounded-full h-full"></div>
                   </div>
                 </div>
               </div>
               <div>
                 <div className="flex gap-2 items-center ">
-                  <span className="text-sm text-end w-[70px] lg:w-[70px] font-semibold whitespace-nowrap">
+                  <span className="text-sm text-end w-[70px] lg:w-[50px] font-semibold whitespace-nowrap">
                     Explicit
                   </span>
                   <div className=" h-[10px] w-full">
-                    <div className="bg-customLightBlue rounded-full h-full"></div>
+                    <div style={{width : `${explicitness.explicit > explicitness.clean ? "100%" : `${explicitness.explicit}%`}`}} className="bg-customLightBlue rounded-full h-full"></div>
                   </div>
                 </div>
               </div>
