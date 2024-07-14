@@ -55,7 +55,7 @@ export const fetchTopAlbums = createAsyncThunk(
           },
         }
       );
-
+      console.log("TOP ALBUMS : ", res.data)
       return res.data as AlbumStructure;
     } catch (error) {
       console.error(error);

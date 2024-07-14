@@ -4,6 +4,7 @@ import { fetchTopTracks } from "../redux/tracks";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { calculateLength } from "../utils/calc";
+import Popularity from "../components/Popularity";
 
 const Tracks = () => {
   const tracks = useSelector((state: RootState) => state.tracks.tracks?.items);
@@ -21,7 +22,7 @@ const Tracks = () => {
       tracks.forEach((item) => calculateLength(item.duration_ms, newDurations));
       setDuration(newDurations);
     }
-  }, [tracks,term,limit,dispatch]);
+  }, [tracks, term, limit, dispatch]);
 
   useEffect(() => {
     console.log("Durations : ", duration);
@@ -32,7 +33,7 @@ const Tracks = () => {
 
   return (
     <div className="flex justify-center mb-[10rem]">
-      <div className="w-full md:w-[90%] lg:w-[900px] xl:w-[1200px]">
+      <div className="w-full md:w-[90%]  xl:w-[1200px]">
         <div className="flex px-6 md:px-0 mb-5">
           <div className="grid gap-5 grid-cols-2">
             <div>
@@ -57,7 +58,6 @@ const Tracks = () => {
                 }
                 className="bg-customBlue"
               >
-                <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
                 <option value={30}>30</option>
@@ -67,15 +67,90 @@ const Tracks = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-5  lg:w-[900px] xl:w-[1200px]">
+        <div className="relative grid grid-cols-1 lg:grid-cols-4 gap-5   xl:w-[1200px]">
           <div className="lg:col-span-3">
             <TracksComponent />
           </div>
 
-          <div className=" ">
-            <div>By Length</div>
-            <div>By Length</div>
-            <div>By Length</div>
+          <div className="lg:sticky top-[20px] h-[400px] lg:col-span-1  flex flex-col gap-5">
+            <div className="bg-customBlue px-6 py-6 w-full md:rounded-md">
+              <div className="font-extrabold text-xl mb-5">By Length</div>
+              <div>
+                <div className="flex gap-2  items-center ">
+                  <span className="text-sm    font-semibold whitespace-nowrap ">
+                    {"< 4m"}
+                  </span>
+                  <div className="h-[10px] w-full">
+                    <div
+                      style={{
+                        width: `${
+                          duration.lessThan4 > duration.greaterThan4
+                            ? "100%"
+                            : `${
+                                (duration.greaterThan4 / duration.lessThan4) *
+                                100
+                              }%`
+                        }`,
+                      }}
+                      className="bg-customLightBlue rounded-full h-full"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="flex gap-2  items-center ">
+                  <span className="text-sm   font-semibold whitespace-nowrap">
+                    {"> 4m"}
+                  </span>
+                  <div className=" h-[10px] w-full">
+                    {/* calculation
+                      
+                    */}
+                    <div
+                      style={{
+                        width: `${
+                          duration.greaterThan4 > duration.lessThan4
+                            ? "100%"
+                            : `${
+                                (duration.greaterThan4 / duration.lessThan4) *
+                                100
+                              }%`
+                        }`,
+                      }}
+                      className="bg-customLightBlue rounded-full h-full"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <Popularity />
+            <div className="bg-customBlue px-6 py-6 w-full md:rounded-md">
+              <div className="font-extrabold text-xl mb-5 ">
+                By Explicitness
+              </div>
+
+              <div>
+                <div className="flex  items-center gap-2">
+                  <span className="text-sm text-end w-[70px] lg:w-[70px] font-semibold whitespace-nowrap">
+                    Clean
+                  </span>
+
+                  <div className=" h-[10px] w-full">
+                    <div className="bg-customLightBlue rounded-full h-full"></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="flex gap-2 items-center ">
+                  <span className="text-sm text-end w-[70px] lg:w-[70px] font-semibold whitespace-nowrap">
+                    Explicit
+                  </span>
+                  <div className=" h-[10px] w-full">
+                    <div className="bg-customLightBlue rounded-full h-full"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

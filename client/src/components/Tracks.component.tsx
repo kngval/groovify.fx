@@ -8,9 +8,9 @@ const TracksComponent = () => {
   );
 
   return (
-    <div className="bg-customBlue rounded-lg flex justify-center">
+    <div className="bg-customBlue md:rounded-md flex justify-center">
       {trackItems && trackItems.length > 0 && (
-        <div className="grid w-[80%]  py-12">
+        <div className="grid w-[90%] sm:w-[80%]  py-12">
           <div className="top-3 flex justify-center gap-2 items-center relative mb-[9rem]">
             <img
               src={trackItems[1].album.images[1].url}
@@ -25,31 +25,34 @@ const TracksComponent = () => {
               className="w-[150px]"
             />
           </div>
-          <div className="grid gap-2 px-5  mb-12">
+          <div className=" grid gap-2 px-5  mb-12">
             {trackItems.map((track, index) => (
-              <div className="flex  items-center gap-5" key={index}>
-                <div className=" flex justify-center items-center text-customGray w-[20px]">
-                  <h1>{index + 1}</h1>
+              <div key={index}>
+                <div className="flex items-center gap-5 p-2">
+                  <div className=" flex justify-center items-center text-customGray w-[20px]">
+                    <h1 className="font-extrabold">{index + 1}</h1>
+                  </div>
+                  <img
+                    src={track.album.images[2].url}
+                    alt=""
+                    className="w-[50px] sm:w-[60px] rounded-md object-cover object-center"
+                  />
+                  <div>
+                    <h1 className="text-xs sm:text-sm">{track.name}</h1>
+                    {track.artists.map((a, i) => (
+                      <span
+                        key={i}
+                        className="text-customGray break-all text-wrap"
+                      >
+                        <a href={a.external_urls.spotify} className="text-xs">
+                          {a.name}
+                        </a>
+                        {i < track.artists.length - 1 && ", "}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <img
-                  src={track.album.images[2].url}
-                  alt=""
-                  className="rounded-md object-cover object-center"
-                />
-                <div>
-                  <h1 className="text-sm">{track.name}</h1>
-                  {track.artists.map((a, i) => (
-                    <span
-                      key={i}
-                      className="text-customGray break-all text-wrap"
-                    >
-                      <a href={a.external_urls.spotify} className="text-xs">
-                        {a.name}
-                      </a>
-                      {i < track.artists.length - 1 && ", "}
-                    </span>
-                  ))}
-                </div>
+                <hr className="border-gray-700" />
               </div>
             ))}
           </div>

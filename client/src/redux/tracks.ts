@@ -21,6 +21,7 @@ interface TrackStructure {
         };
         name: string;
         duration_ms: number;
+        popularity:number;
       }[]
     | null;
 }

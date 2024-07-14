@@ -22,7 +22,7 @@ const AlbumsComponent = () => {
           {albums.map((album, index) => (
             <div className="flex items-center" >
               <div className="flex items-center justify-center w-[50px] ">
-                <h1 className="text-customGray">{index + 1}</h1>
+                <h1 className="text-customGray font-extrabold">{index + 1}</h1>
               </div>
               <div className="flex items-center gap-4">
                 <img

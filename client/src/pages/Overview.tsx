@@ -15,7 +15,9 @@ import GenresComponent from "../components/genres.component";
 const Overview = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    dispatch(fetchTopTracks({ time_range: "short_term", limit: 10,offset:0 }));
+    dispatch(
+      fetchTopTracks({ time_range: "short_term", limit: 10, offset: 0 })
+    );
     dispatch(
       fetchTopArtists({ time_range: "short_term", offset: 0, limit: 10 })
     );
@@ -27,33 +29,31 @@ const Overview = () => {
 
   const wrapperClass =
     "wrapper grid grid-cols-1 lg:grid-cols-2 lg:w-[1000px] gap-[10rem] lg:gap-5 w-full sm:w-[600px] md:w-[700px] xl:w-[1200px] mb-[10rem] ";
-  const titleClass = "text-2xl font-bold text-center mb-6 lg:text-start";
+  const titleClass = "text-2xl font-extrabold text-center mb-6 lg:text-start";
   return (
     <div>
       <div className="overview-contents grid place-items-center  mb-[10rem]">
-        <div className={wrapperClass} >
+        <div className={wrapperClass}>
           <div className="top-tracks">
-            <h1 className={titleClass}>Top Tracks (4 weeks)</h1>
+            <h1 className={titleClass}>Top Tracks</h1>
 
             <TracksComponent />
           </div>
 
           <div className="top-artists">
-            <h1 className="text-2xl font-bold text-center mb-6 lg:text-start">
-              Top Artists (4 weeks)
-            </h1>
+            <h1 className={titleClass}>Top Artists</h1>
             <ArtistsComponent />
           </div>
         </div>
 
         <div className={wrapperClass}>
           <div>
-            <h1 className={titleClass}>Top Albums (4 weeks)</h1>
+            <h1 className={titleClass}>Top Albums</h1>
             <AlbumsComponent />
           </div>
 
           <div>
-            <h1 className={titleClass}>Top Genres (4 weeks)</h1>
+            <h1 className={titleClass}>Top Genres</h1>
 
             <GenresComponent />
           </div>
