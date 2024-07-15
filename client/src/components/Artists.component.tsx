@@ -8,7 +8,7 @@ const ArtistsComponent = () => {
   );
 
   return (
-    <div className="bg-customBlue rounded-lg flex justify-center">
+    <div className="bg-customBlue md:rounded-lg flex justify-center">
       {artistsItems && artistsItems.length > 0 && (
         <div className="grid place-items-center w-[90%]  py-12">
           <div className="top-3 flex items-center relative mb-[8rem]">

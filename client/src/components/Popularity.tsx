@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 
 const Popularity = () => {
   const tracks = useSelector((state: RootState) => state.tracks.tracks?.items);
+  const artists = useSelector((state:RootState) => state.artists.artists?.items);
   const [popularity, setPopularity] = useState({
     obscure: 0,
     average: 0,
     popular: 0,
   });
   useEffect(() => {
-    if (tracks) {
+    if (tracks || artists) {
       const newPopularity = {
         obscure: 0,
         average: 0,
@@ -28,7 +29,7 @@ const Popularity = () => {
 
       setPopularity(newPopularity);
     }
-  }, [tracks]);
+  }, [tracks,artists]);
 
   useEffect(() => {
     console.log("Popularity :", popularity);
