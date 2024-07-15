@@ -11,6 +11,7 @@ interface ArtistStructure {
     images: {
       url: string;
     }[];
+    popularity:number;
   }[];
 }
 

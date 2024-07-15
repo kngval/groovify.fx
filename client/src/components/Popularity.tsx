@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 
 const Popularity = () => {
   const tracks = useSelector((state: RootState) => state.tracks.tracks?.items);
-  const artists = useSelector((state:RootState) => state.artists.artists?.items);
+  const artists = useSelector(
+    (state: RootState) => state.artists.artists?.items
+  );
   const [popularity, setPopularity] = useState({
     obscure: 0,
     average: 0,
@@ -12,31 +14,49 @@ const Popularity = () => {
   });
   useEffect(() => {
     if (tracks || artists) {
-      const newPopularity = {
-        obscure: 0,
-        average: 0,
-        popular: 0,
-      };
-      tracks?.forEach((track) => {
-        if (track.popularity <= 45) {
-          newPopularity.obscure += 1;
-        } else if (track.popularity <= 60) {
-          newPopularity.average += 1;
-        } else {
-          newPopularity.popular += 1;
-        }
-      });
-
-      setPopularity(newPopularity);
+      if (location.pathname === "/my-stats/tracks") {
+        const newPopularity = {
+          obscure: 0,
+          average: 0,
+          popular: 0,
+        };
+        tracks?.forEach((track) => {
+          if (track.popularity <= 45) {
+            newPopularity.obscure += 1;
+          } else if (track.popularity <= 60) {
+            newPopularity.average += 1;
+          } else {
+            newPopularity.popular += 1;
+          }
+        });
+        setPopularity(newPopularity);
+      }
+      if (location.pathname === "/my-stats/artists") {
+        const newPopularity = {
+          obscure: 0,
+          average: 0,
+          popular: 0,
+        };
+        artists?.forEach((artist) => {
+          if (artist.popularity <= 45) {
+            newPopularity.obscure += 1;
+          } else if (artist.popularity <= 60) {
+            newPopularity.average += 1;
+          } else {
+            newPopularity.popular += 1;
+          }
+        });
+        setPopularity(newPopularity);
+      }
     }
-  }, [tracks,artists]);
+  }, [tracks, artists]);
 
   useEffect(() => {
     console.log("Popularity :", popularity);
   }, [popularity]);
 
   return (
-    <div className="bg-customBlue px-6 py-6 w-full md:rounded-md">
+    <div className="bg-customBlue p-6 w-full md:rounded-md">
       <div className="font-extrabold text-xl mb-5 ">By Popularity</div>
       <div>
         <div className="flex  items-center gap-2">
@@ -77,7 +97,12 @@ const Popularity = () => {
                   popularity.average > popularity.obscure &&
                   popularity.average > popularity.popular
                     ? "100%"
-                    : `${popularity.average}%`
+                    : `${
+                        (popularity.popular /
+                          popularity.obscure /
+                          popularity.average) *
+                        100
+                      }%`
                 }`,
               }}
               className="bg-customLightBlue rounded-full h-full"

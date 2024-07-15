@@ -4,7 +4,6 @@ import { fetchTopArtists } from "../redux/artists";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
 import Popularity from "../components/Popularity";
-import { fetchTopTracks } from "../redux/tracks";
 
 const Artists = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -12,7 +11,6 @@ const Artists = () => {
   const [limit, setLimit] = useState<number>(10);
   useEffect(() => {
     dispatch(fetchTopArtists({time_range: term, limit:limit, offset:0}));
-    dispatch(fetchTopTracks({time_range: term, limit:limit, offset:0}))
   },[dispatch,limit,term])
   return (
     <div className="flex justify-center mb-[10rem]">
@@ -56,11 +54,9 @@ const Artists = () => {
           </div>
 
           <div className="lg:sticky top-[20px] h-[400px] lg:col-span-1  flex flex-col gap-5">
-            <div className="bg-customBlue px-6 py-6 w-full md:rounded-md">
               
             <Popularity />
-            
-          </div>
+          
         </div>
       </div>
     </div>
