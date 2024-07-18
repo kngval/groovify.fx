@@ -27,7 +27,15 @@ const GenresComponent = () => {
         </div>
       )}
       <div>
-        <Link to="/my-stats/genres" className="text-customLightBlue text-md">
+        <Link
+          to="/my-stats/genres"
+          style={{
+            display: `${
+              location.pathname === "/my-stats/overview" ? "block" : "none"
+            }`,
+          }}
+          className="text-customLightBlue text-md"
+        >
           See All
         </Link>
       </div>
