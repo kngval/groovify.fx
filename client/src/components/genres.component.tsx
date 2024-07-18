@@ -13,14 +13,14 @@ const GenresComponent = () => {
       {genres && genres.length > 0 && (
         <div className="grid gap-5 w-[80%]">
           {genres.map((genre, index) => (
-            <div className="flex gap-5" key={index}>
+            <div className="flex gap-5 items-center" key={index}>
               <div className="text-end w-[20px]">
                 <h1 className="text-customGray text-end font-bold">
                   {index + 1}
                 </h1>
               </div>
               <div>
-                <h1 className="uppercase text-start">{genre[0]}</h1>
+                <h1 className="text-sm uppercase">{genre[0]}</h1>
               </div>
             </div>
           ))}

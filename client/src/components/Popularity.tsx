@@ -14,46 +14,34 @@ const Popularity = () => {
   });
   useEffect(() => {
     if (tracks || artists) {
-      if (location.pathname === "/my-stats/tracks") {
-        const newPopularity = {
-          obscure: 0,
-          average: 0,
-          popular: 0,
-        };
-        tracks?.forEach((track) => {
-          if (track.popularity <= 45) {
-            newPopularity.obscure += 1;
-          } else if (track.popularity <= 60) {
-            newPopularity.average += 1;
-          } else {
-            newPopularity.popular += 1;
-          }
-        });
-        setPopularity(newPopularity);
-      }
-      if (location.pathname === "/my-stats/artists") {
-        const newPopularity = {
-          obscure: 0,
-          average: 0,
-          popular: 0,
-        };
-        artists?.forEach((artist) => {
-          if (artist.popularity <= 45) {
-            newPopularity.obscure += 1;
-          } else if (artist.popularity <= 60) {
-            newPopularity.average += 1;
-          } else {
-            newPopularity.popular += 1;
-          }
-        });
-        setPopularity(newPopularity);
-      }
+      const newPopularity = {
+        obscure: 0,
+        average: 0,
+        popular: 0,
+      };
+      const items = location.pathname === "/my-stats/tracks" ? tracks : artists;
+      items?.forEach((item) => {
+        if (item.popularity <= 45) {
+          newPopularity.obscure += 1;
+        } else if (item.popularity <= 60) {
+          newPopularity.average += 1;
+        } else {
+          newPopularity.popular += 1;
+        }
+      });
+      setPopularity(newPopularity);
     }
   }, [tracks, artists]);
 
   useEffect(() => {
     console.log("Popularity :", popularity);
   }, [popularity]);
+
+  const maxPopularity = Math.max(
+    popularity.obscure,
+    popularity.average,
+    popularity.popular
+  );
 
   return (
     <div className="bg-customBlue p-6 w-full md:rounded-md">
@@ -70,12 +58,7 @@ const Popularity = () => {
                   popularity.obscure > popularity.average &&
                   popularity.obscure > popularity.popular
                     ? "100%"
-                    : `${
-                        (popularity.obscure /
-                          popularity.average /
-                          popularity.popular) *
-                        100
-                      }%`
+                    : `${(popularity.obscure / maxPopularity) * 100}%`
                 }`,
               }}
               className="bg-customLightBlue rounded-full h-full"
@@ -97,12 +80,7 @@ const Popularity = () => {
                   popularity.average > popularity.obscure &&
                   popularity.average > popularity.popular
                     ? "100%"
-                    : `${
-                        (popularity.popular /
-                          popularity.obscure /
-                          popularity.average) *
-                        100
-                      }%`
+                    : `${(popularity.average / maxPopularity) * 100}%`
                 }`,
               }}
               className="bg-customLightBlue rounded-full h-full"
@@ -122,12 +100,7 @@ const Popularity = () => {
                   popularity.popular > popularity.obscure &&
                   popularity.popular > popularity.average
                     ? "100%"
-                    : `${
-                        (popularity.popular /
-                          popularity.obscure /
-                          popularity.average) *
-                        100
-                      }%`
+                    : `${(popularity.popular / maxPopularity) * 100}%`
                 }`,
               }}
               className="bg-customLightBlue rounded-full h-full"

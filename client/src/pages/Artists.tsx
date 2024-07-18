@@ -6,12 +6,12 @@ import { AppDispatch } from "../redux/store";
 import Popularity from "../components/Popularity";
 
 const Artists = () => {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>();
   const [term, setTerm] = useState("short_term");
   const [limit, setLimit] = useState<number>(10);
   useEffect(() => {
-    dispatch(fetchTopArtists({time_range: term, limit:limit, offset:0}));
-  },[dispatch,limit,term])
+    dispatch(fetchTopArtists({ time_range: term, limit: limit, offset: 0 }));
+  }, [dispatch, limit, term]);
   return (
     <div className="flex justify-center mb-[10rem]">
       <div className="w-full md:w-[90%]  xl:w-[1200px]">
@@ -54,12 +54,10 @@ const Artists = () => {
           </div>
 
           <div className="lg:sticky top-[20px] h-[400px] lg:col-span-1  flex flex-col gap-5">
-              
             <Popularity />
-          
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };

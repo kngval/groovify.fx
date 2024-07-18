@@ -101,7 +101,3 @@ export const callback = async (req: Request, res: Response) => {
       .json({ error: error.response?.data || error.message });
   }
 };
-
-export const greet = (_req: Request, res: Response) => {
-  res.json("HELLOOOOOOOOOOOOOOOOOOOO");
-};

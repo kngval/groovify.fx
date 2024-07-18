@@ -115,7 +115,7 @@ export const fetchTopGenres = async (req: Request, res: Response) => {
     );
     const data = await response.json();
 
-    const topArtists = data.items;
+    const topArtists = data.items as GenresState[];
     const genreCounts: {
       [key: string]: number;
     } = {};

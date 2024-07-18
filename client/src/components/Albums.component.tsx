@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { Link } from "react-router-dom";
 
 const AlbumsComponent = () => {
   const albums = useSelector(
@@ -31,10 +32,10 @@ const AlbumsComponent = () => {
                   className="rounded-md object-cover object-center"
                 />
                 <div>
-                  <h1>{album.name}</h1>
+                  <h1 className="text-sm">{album.name}</h1>
                   {album.artist.map((art, i) => (
                     <span className="text-sm text-customGray break-all text-wrap" >
-                      <a href={art.link}>{art.name}</a>
+                      <a href={art.link} className="text-xs">{art.name}</a>
                       {i < album.artist.length - 1 && ", "}
                     </span>
                   ))}
@@ -44,9 +45,9 @@ const AlbumsComponent = () => {
           ))}
           </div>
           <div className="flex justify-center items-center">
-            <a href="/" className="text-customLightBlue">
+            <Link to="/my-stats/albums" className="text-customLightBlue">
               See all
-            </a>
+            </Link>
           </div>
         </div>
       )}

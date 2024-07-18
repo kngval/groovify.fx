@@ -1,5 +1,11 @@
+import AlbumsComponent from "../components/Albums.component";
+
 const Albums = () => {
-  return <div></div>;
+  return (
+    <div>
+      <AlbumsComponent />
+    </div>
+  );
 };
 
 export default Albums;
