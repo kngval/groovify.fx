@@ -7,7 +7,7 @@ const GenresComponent = () => {
     (state: RootState) => state.genres.genres?.sortedGenres
   );
   const wrapper =
-    "bg-customBlue py-12 rounded-lg flex flex-col items-center gap-10";
+    "bg-customBlue py-12 md:rounded-lg flex flex-col items-center gap-10";
   return (
     <div className={wrapper}>
       {genres && genres.length > 0 && (
