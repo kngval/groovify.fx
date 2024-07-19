@@ -8,7 +8,7 @@ import Popularity from "../components/Popularity";
 const Artists = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [term, setTerm] = useState("short_term");
-  const [limit, setLimit] = useState<number>(10);
+  const [limit, setLimit] = useState<number>(20);
   useEffect(() => {
     dispatch(fetchTopArtists({ time_range: term, limit: limit, offset: 0 }));
   }, [dispatch, limit, term]);

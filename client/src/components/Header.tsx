@@ -15,8 +15,11 @@ const Header = () => {
   const { jwtToken, accessToken } = useSelector(
     (state: RootState) => state.auth
   );
+  const [toggle, setToggle] = useState<boolean[]>([true,true,true]);
   const navigate = useNavigate();
-
+  useEffect(() => {
+    
+  },[toggle])
   useEffect(() => {
     if (jwtToken) {
       fetchProfile();
@@ -114,12 +117,21 @@ const Header = () => {
                   />
 
                   <div>
-                    <a
-                      className="text-sm"
-                      href={currentlyPlaying?.external_urls.spotify}
-                    >
-                      {currentlyPlaying?.name}
-                    </a>
+                    <div className="flex gap-2 items-center">
+                      <a
+                        className="text-sm"
+                        href={currentlyPlaying?.external_urls.spotify}
+                      >
+                        {currentlyPlaying?.name}
+                      </a>
+                      <div className="bars flex gap-1 items-center h-[20px]">
+                        <div
+                          className={` w-1 ${toggle ? `h-full` : "h-1"} transition-all ease-in-out bg-white`}
+                        ></div>
+                        <div className={` w-1 ${toggle ? `h-full` : "h-1"} transition-all ease-in-out bg-white`}></div>
+                        <div className={` w-1 ${toggle ? `h-full` : "h-1"} transition-all ease-in-out bg-white`}></div>
+                      </div>
+                    </div>
                     <div>
                       {currentlyPlaying?.album.artists.map((a, index) => (
                         <a

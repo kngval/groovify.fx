@@ -10,22 +10,24 @@ const Tracks = () => {
   const tracks = useSelector((state: RootState) => state.tracks.tracks?.items);
   const dispatch = useDispatch<AppDispatch>();
   const [term, setTerm] = useState("short_term");
-  const [limit, setLimit] = useState<number>(10);
+  const [limit, setLimit] = useState<number>(20);
   const [duration, setDuration] = useState({
     lessThan4: 0,
     greaterThan4: 0,
   });
-  const [explicitness,setExplicitness] = useState({
-    clean:0,
-    explicit:0
-  })
+  const [explicitness, setExplicitness] = useState({
+    clean: 0,
+    explicit: 0,
+  });
   useEffect(() => {
     if (tracks && tracks.length > 0) {
       let newDurations = { lessThan4: 0, greaterThan4: 0 };
-      let newExplicit = {clean:0, explicit:0}
+      let newExplicit = { clean: 0, explicit: 0 };
       tracks.forEach((item) => {
         calculateLength(item.duration_ms, newDurations);
-        item.explicit === true ? newExplicit.explicit +=1 : newExplicit.clean +=1;
+        item.explicit === true
+          ? (newExplicit.explicit += 1)
+          : (newExplicit.clean += 1);
       });
       setExplicitness(newExplicit);
       setDuration(newDurations);
@@ -35,7 +37,6 @@ const Tracks = () => {
   useEffect(() => {
     console.log("Durations : ", duration);
     console.log("Explicitness : ", explicitness);
-
   }, [duration]);
   useEffect(() => {
     dispatch(fetchTopTracks({ limit: limit, offset: 0, time_range: term }));
@@ -97,7 +98,7 @@ const Tracks = () => {
                           duration.lessThan4 > duration.greaterThan4
                             ? "100%"
                             : `${
-                                (duration.greaterThan4 / duration.lessThan4) *
+                                (duration.lessThan4 / duration.greaterThan4) *
                                 100
                               }%`
                         }`,
@@ -146,7 +147,16 @@ const Tracks = () => {
                   </span>
 
                   <div className=" h-[10px] w-full">
-                    <div style={{width : `${explicitness.clean > explicitness.explicit ? "100%" : `${explicitness.clean}%`}`}} className="bg-customLightBlue rounded-full h-full"></div>
+                    <div
+                      style={{
+                        width: `${
+                          explicitness.clean > explicitness.explicit
+                            ? "100%"
+                            : `${explicitness.clean}%`
+                        }`,
+                      }}
+                      className="bg-customLightBlue rounded-full h-full"
+                    ></div>
                   </div>
                 </div>
               </div>
@@ -156,7 +166,16 @@ const Tracks = () => {
                     Explicit
                   </span>
                   <div className=" h-[10px] w-full">
-                    <div style={{width : `${explicitness.explicit > explicitness.clean ? "100%" : `${explicitness.explicit}%`}`}} className="bg-customLightBlue rounded-full h-full"></div>
+                    <div
+                      style={{
+                        width: `${
+                          explicitness.explicit > explicitness.clean
+                            ? "100%"
+                            : `${explicitness.explicit}%`
+                        }`,
+                      }}
+                      className="bg-customLightBlue rounded-full h-full"
+                    ></div>
                   </div>
                 </div>
               </div>
