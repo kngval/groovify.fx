@@ -34,7 +34,7 @@ const ArtistsComponent = () => {
                 <img
                   src={artist.images[2].url}
                   alt=""
-                  className="rounded-full object-cover object-center w-[70px] h-[70px]"
+                  className="rounded-full object-cover object-center w-[50px] h-[50px] md:w-[60px] md:h-[60px]"
                 />
                 <div>
                   <h1 className="text-sm">{artist.name}</h1>

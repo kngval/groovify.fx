@@ -19,7 +19,7 @@ const Popularity = () => {
         average: 0,
         popular: 0,
       };
-      const items = location.pathname === "/my-stats/tracks" ? tracks : artists;
+      const items = location.pathname === "/my-stats/tracks" || location.pathname === "/my-stats/albums" ? tracks : artists;
       items?.forEach((item) => {
         if (item.popularity <= 45) {
           newPopularity.obscure += 1;

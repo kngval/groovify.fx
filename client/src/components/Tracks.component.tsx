@@ -35,7 +35,7 @@ const TracksComponent = () => {
                   <img
                     src={track.album.images[2].url}
                     alt=""
-                    className="w-[50px] sm:w-[60px] rounded-md object-cover object-center"
+                    className="w-[50px] md:w-[60px] rounded-md object-cover object-center"
                   />
                   <div>
                     <h1 className="text-xs sm:text-sm">{track.name}</h1>

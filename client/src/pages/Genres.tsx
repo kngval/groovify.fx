@@ -6,11 +6,10 @@ import { fetchTopGenres } from "../redux/genres";
 
 const Genres = () => {
   const [term, setTerm] = useState("short_term");
-  const [limit, setLimit] = useState<number>(10);
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
-    dispatch(fetchTopGenres({time_range:term,limit:limit, offset:0}))
-  },[dispatch,term,limit])
+    dispatch(fetchTopGenres({time_range:term,limit:50, offset:0}))
+  },[dispatch,term])
   return (
     <div className="flex justiflex justify-center mb-[10rem]">
       <div className="w-full md:w-[90%]  xl:w-[1200px]">
@@ -29,22 +28,7 @@ const Genres = () => {
                 <option value="long_term">Long Term</option>
               </select>
             </div>
-            <div className="flex justify-between px-3 items-center bg-customBlue  rounded-md text-sm">
-              <h1>Limit</h1>
-              <select
-                value={limit}
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                  setLimit(parseInt(e.target.value))
-                }
-                className="bg-customBlue"
-              >
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-                <option value={30}>30</option>
-                <option value={40}>40</option>
-                <option value={50}>50</option>
-              </select>
-            </div>
+           
           </div>
         </div>
         <GenresComponent />
