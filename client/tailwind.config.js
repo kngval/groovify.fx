@@ -16,6 +16,11 @@ export default {
       fontSize: {
         xxs: "10px",
       },
+      animation: {
+        wave: 'wave 1s infinite ease-in-out',
+        wave2: 'wave2 0.7s infinite ease-in-out',
+        wave3: 'wave3 1.3s infinite ease-in-out',
+      }
     },
   },
   plugins: [],

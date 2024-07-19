@@ -20,6 +20,32 @@ body {
   display: none;  /* Safari and Chrome */
 }
 
+@keyframes wave {
+  0%, 100% {
+    height: 100%;
+  }
+  50% {
+    height: 5%;
+  }
+}
+
+@keyframes wave2 {
+  0%, 100% {
+    height: 100%;
+  }
+  50% {
+    height: 5%;
+  }
+}
+
+@keyframes wave3 {
+  0%, 100% {
+    height: 100%;
+  }
+  50% {
+    height: 5%;
+  }
+}
 
 
 @media (min-width:540px){

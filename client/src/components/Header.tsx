@@ -15,11 +15,8 @@ const Header = () => {
   const { jwtToken, accessToken } = useSelector(
     (state: RootState) => state.auth
   );
-  const [toggle, setToggle] = useState<boolean[]>([true,true,true]);
   const navigate = useNavigate();
-  useEffect(() => {
-    
-  },[toggle])
+
   useEffect(() => {
     if (jwtToken) {
       fetchProfile();
@@ -119,24 +116,28 @@ const Header = () => {
                   <div>
                     <div className="flex gap-2 items-center">
                       <a
-                        className="text-sm"
+                        className="h-full flex flex-col justify-end text-sm  align-text-bottom"
                         href={currentlyPlaying?.external_urls.spotify}
                       >
                         {currentlyPlaying?.name}
                       </a>
-                      <div className="bars flex gap-1 items-center h-[20px]">
+                      <div className="bars flex gap-1 items-end h-[10px]">
                         <div
-                          className={` w-1 ${toggle ? `h-full` : "h-1"} transition-all ease-in-out bg-white`}
+                          className={` w-1 wave  bg-white animate-wave`}
                         ></div>
-                        <div className={` w-1 ${toggle ? `h-full` : "h-1"} transition-all ease-in-out bg-white`}></div>
-                        <div className={` w-1 ${toggle ? `h-full` : "h-1"} transition-all ease-in-out bg-white`}></div>
+                        <div
+                          className={` w-1 wave2  bg-white animate-wave2`}
+                        ></div>
+                        <div
+                          className={` w-1 wave3  bg-white animate-wave3`}
+                        ></div>
                       </div>
                     </div>
                     <div>
                       {currentlyPlaying?.album.artists.map((a, index) => (
                         <a
                           href={a.external_urls.spotify}
-                          className="text-xs text-customBlue"
+                          className="text-xs text-customBlue font-medium"
                           key={index}
                         >
                           {a.name !==
