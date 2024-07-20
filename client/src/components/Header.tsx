@@ -123,13 +123,13 @@ const Header = () => {
                       </a>
                       <div className="bars flex gap-1 items-end h-[10px]">
                         <div
-                          className={` w-1 wave  bg-white animate-wave`}
+                          className={` w-[3px] wave  bg-white animate-wave`}
                         ></div>
                         <div
-                          className={` w-1 wave2  bg-white animate-wave2`}
+                          className={` w-[3px] wave2  bg-white animate-wave2`}
                         ></div>
                         <div
-                          className={` w-1 wave3  bg-white animate-wave3`}
+                          className={` w-[3px] wave3  bg-white animate-wave3`}
                         ></div>
                       </div>
                     </div>

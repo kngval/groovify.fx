@@ -23,7 +23,7 @@ const Popularity = () => {
       items?.forEach((item) => {
         if (item.popularity <= 45) {
           newPopularity.obscure += 1;
-        } else if (item.popularity <= 60) {
+        } else if (item.popularity <= 70) {
           newPopularity.average += 1;
         } else {
           newPopularity.popular += 1;
