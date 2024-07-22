@@ -4,6 +4,7 @@ import { fetchTopAlbums } from "../redux/albums";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
 import Popularity from "../components/Popularity";
+import { fetchTopTracks } from "../redux/tracks";
 
 const Albums = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -11,6 +12,7 @@ const Albums = () => {
   const [limit, setLimit] = useState<number>(20);
   useEffect(() => {
     dispatch(fetchTopAlbums({ time_range: term, limit: limit, offset: 0 }));
+    dispatch(fetchTopTracks({ time_range: term, limit: limit, offset: 0 }));
   }, [dispatch, limit, term]);
   return (
     <div className="flex justify-center mb-[10rem]">
@@ -48,11 +50,11 @@ const Albums = () => {
         </div>
         <div className="grid gap-5 lg:grid-cols-4">
           <div className="lg:col-span-3">
-        <AlbumsComponent />
-        </div>
-        <div className="">
-        <Popularity />
-        </div>
+            <AlbumsComponent />
+          </div>
+          <div className="">
+            <Popularity />
+          </div>
         </div>
       </div>
     </div>

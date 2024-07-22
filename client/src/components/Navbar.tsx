@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const jwtToken = useSelector((state: RootState) => state.auth.jwtToken);
+
+ 
   return (
     <div className="py-6  flex justify-center items-center bg-customBlue">
       <div className="w-[90%]  xl:w-[1200px] flex justify-between items-center">
@@ -12,7 +14,7 @@ const Navbar = () => {
           className="nav-title font-extrabold flex items-center  text-lg sm:text-xl h-full gap-1 cursor-pointer"
         >
           <div className="flex justify-center items-center h-full">
-            <svg
+            {/* <svg
               viewBox="0 0 24 24"
               className="w-[30px] h-[30px]"
               fill="none"
@@ -34,7 +36,7 @@ const Navbar = () => {
                   fill="#fff"
                 ></path>
               </g>
-            </svg>
+            </svg> */}
           </div>
           <h1 className="text-xl">groovify</h1>
         </Link>

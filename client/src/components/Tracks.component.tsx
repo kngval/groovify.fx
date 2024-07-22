@@ -25,7 +25,7 @@ const TracksComponent = () => {
               className="w-[150px]"
             />
           </div>
-          <div className=" grid gap-2 px-5  mb-12">
+          <div className=" grid gap-2   mb-12">
             {trackItems.map((track, index) => (
               <div key={index}>
                 <div className="flex items-center gap-5 p-2">

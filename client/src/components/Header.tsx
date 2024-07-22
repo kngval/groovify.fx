@@ -106,7 +106,7 @@ const Header = () => {
             </div>
             {currentlyPlaying && (
               <div className="currently-playing   bg-customLightBlue rounded-lg p-4 lg:pr-">
-                <div className="flex gap-5">
+                <div className="flex gap-4 items-center">
                   <img
                     src={currentlyPlaying?.album.images[0].url}
                     alt=""
@@ -137,7 +137,7 @@ const Header = () => {
                       {currentlyPlaying?.album.artists.map((a, index) => (
                         <a
                           href={a.external_urls.spotify}
-                          className="text-xs text-customBlue font-medium"
+                          className="text-xs text-customBlue "
                           key={index}
                         >
                           {a.name !==

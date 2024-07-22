@@ -11,6 +11,7 @@ import Genres from "./pages/Genres";
 import Header from "./components/Header";
 import { useTokenRefresh } from "./hooks/refresh.hooks";
 import { useEffect } from "react";
+import Footer from "./components/Footer";
 
 function App() {
   const { jwtToken, accessToken } = useSelector(
@@ -73,6 +74,7 @@ function App() {
             element={jwtToken ? <Genres /> : <Navigate to="/login" />}
           />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );
