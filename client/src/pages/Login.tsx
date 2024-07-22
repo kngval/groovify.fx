@@ -41,11 +41,11 @@ const Login = () => {
     }
   }, []);
   return (
-    <div className="w-full flex justify-center items-center mt-[3rem] mb-[10rem]">
+    <div className="w-full flex justify-center items-center my-36">
       <div className="main-container w-full md:w-[90%]  xl:w-[1200px] grid grid-cols-1 lg:grid-cols-2 lg:gap-5 place-items-center">
         <div className="grid place-items-center">
           <div className="font-extrabold text-2xl sm:text-3xl xl:text-3xl text-center">
-            Groove hard, and track your spotify stats
+            Groove hard and track your spotify stats
             with <span className="text-customLightBlue">groovify</span>
           </div>
 

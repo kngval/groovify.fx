@@ -9,8 +9,7 @@ const Footer = () => {
             <h1 className="text-lg">groovify</h1>
           </Link>
           <p className="text-xs md:w-[70%]">
-            Track your spotify stats & never stop the groove with groovify
-            spotify stats. Groove Hard, groove with groovify
+          Dive into the rhythm and groove like never before with groovify! Track your Spotify stats, uncover hidden trends in your listening habits, and make every beat count. 
           </p>
           <p className="text-xs text-gray-500 md:w-[70%]">
             groovify is an innovative web app designed for Spotify users who
