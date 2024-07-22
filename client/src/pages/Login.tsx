@@ -42,17 +42,12 @@ const Login = () => {
   }, []);
   return (
     <div className="w-full flex justify-center items-center mt-[3rem] mb-[10rem]">
-      <div className="main-container grid grid-cols-1 lg:grid-cols-2 lg:gap-5 place-items-center">
+      <div className="main-container w-full md:w-[90%]  xl:w-[1200px] grid grid-cols-1 lg:grid-cols-2 lg:gap-5 place-items-center">
         <div className="grid place-items-center">
-          <div className="font-extrabold text-2xl sm:text-3xl xl:text-4xl text-center">
-            Track your Spotify Stats{" "}
-            <span className="text-xl sm:text-2xl xl:text-3xl block">
-              & Keep Grooving
-            </span>
-          </div>
-          <h3 className="text-center text-lg sm:text-xl xl:text-2xl font-bold">
+          <div className="font-extrabold text-2xl sm:text-3xl xl:text-3xl text-center">
+            Groove hard, and track your spotify stats
             with <span className="text-customLightBlue">groovify</span>
-          </h3>
+          </div>
 
           <button
             type="button"
@@ -68,7 +63,7 @@ const Login = () => {
         <img
           src={login}
           alt=""
-          className="w-[350px] lg:w-[400px] xl:w-[500px]"
+          className="w-[350px] lg:w-[400px] xl:w-[400px]"
         />
       </div>
     </div>
