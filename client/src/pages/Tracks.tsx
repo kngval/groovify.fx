@@ -83,7 +83,7 @@ const Tracks = () => {
             <TracksComponent />
           </div>
 
-          <div className="lg:sticky top-[20px] h-[400px] lg:col-span-1  flex flex-col gap-5">
+          <div className="lg:sticky top-[20px] h-[468px] lg:col-span-1  flex flex-col gap-5">
             <div className="bg-customBlue px-6 py-6 w-full md:rounded-md">
               <div className="font-extrabold text-xl mb-5">By Length</div>
               <div>

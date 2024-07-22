@@ -52,7 +52,7 @@ const Albums = () => {
           <div className="lg:col-span-3">
             <AlbumsComponent />
           </div>
-          <div className="">
+          <div className="lg:sticky top-[20px] h-[100px]">
             <Popularity />
           </div>
         </div>

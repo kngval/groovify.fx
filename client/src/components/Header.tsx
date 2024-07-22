@@ -21,7 +21,7 @@ const Header = () => {
     if (jwtToken) {
       fetchProfile();
       fetchCurrentlyPlaying();
-      const intervalId = setInterval(fetchCurrentlyPlaying, 60000);
+      const intervalId = setInterval(fetchCurrentlyPlaying, 30000);
 
       return () => clearInterval(intervalId);
     }

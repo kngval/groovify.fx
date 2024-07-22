@@ -53,7 +53,7 @@ const Artists = () => {
             <ArtistsComponent />
           </div>
 
-          <div className="lg:sticky top-[20px] h-[400px] lg:col-span-1  flex flex-col gap-5">
+          <div className="lg:sticky top-[20px] h-[100px] lg:col-span-1  flex flex-col gap-5">
             <Popularity />
           </div>
         </div>
