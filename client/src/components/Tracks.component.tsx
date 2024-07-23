@@ -8,7 +8,8 @@ const TracksComponent = () => {
   );
 
   return (
-    <div className="bg-customBlue md:rounded-md flex justify-center">
+    <div id="ss-tracks" className="bg-customBlue md:rounded-md flex justify-center">
+
       {trackItems && trackItems.length > 0 && (
         <div className="grid w-[90%] sm:w-[80%]  py-12">
           <div className="top-3 flex justify-center gap-2 items-center relative mb-[9rem]">

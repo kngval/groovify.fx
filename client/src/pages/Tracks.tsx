@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { calculateLength } from "../utils/calc";
 import Popularity from "../components/Popularity";
+import { screenshot } from "../utils/screenshot";
 
 const Tracks = () => {
   const tracks = useSelector((state: RootState) => state.tracks.tracks?.items);
@@ -77,6 +78,7 @@ const Tracks = () => {
               </select>
             </div>
           </div>
+          <div onClick={() => screenshot("ss-tracks")}>Share</div>
         </div>
         <div className="relative grid grid-cols-1 lg:grid-cols-4 gap-5   xl:w-[1200px]">
           <div className="lg:col-span-3">

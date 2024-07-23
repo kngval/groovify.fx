@@ -29,14 +29,13 @@ const Overview = () => {
 
   const wrapperClass =
     "wrapper grid grid-cols-1 lg:grid-cols-2 lg:w-[1000px] gap-[10rem] lg:gap-5 w-full sm:w-[80%]  xl:w-[1200px] ";
-  const titleClass = "text-2xl font-extrabold text-center mb-6 lg:text-start";
+  const titleClass = "text-2xl font-extrabold text-center lg:text-start mb-6 ";
   return (
     <div className="">
       <div className="overview-contents grid gap-[5rem] place-items-center  mb-[10rem]">
         <div className={wrapperClass}>
           <div className="top-tracks">
-            <h1 className={titleClass}>Top Tracks</h1>
-
+              <h1 className={titleClass}>Top Tracks</h1>
             <TracksComponent />
           </div>
 
