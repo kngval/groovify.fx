@@ -12,7 +12,7 @@ const Navbar = () => {
           to="/"
           className="nav-title font-extrabold flex items-center  text-lg sm:text-xl h-full gap-1 cursor-pointer"
         >
-          <h1 className="text-xl">groovify</h1>
+          <h1 className="text-xl">{"<groovify/>"}</h1>
         </Link>
         {!jwtToken && (
           <div>
@@ -21,7 +21,7 @@ const Navbar = () => {
                 (window.location.href = `${import.meta.env.VITE_URL}/login`)
               }
               type="button"
-              className="hidden lg:block w-[180px] py-2 text-sm bg-customLightBlue font-bold rounded-full"
+              className=" lg:block px-4 py-2 text-xs bg-customLightBlue font-bold rounded-full"
             >
               Sign in with Spotify
             </button>
