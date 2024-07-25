@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="grid gap-10  md:grid-cols-5 w-[90%] bg- xl:w-[1200px] py-12 border-y-[1px] border-y-gray-800">
         <div className="md:col-span-3 grid gap-5">
           <Link to="/" className="font-extrabold   cursor-pointer">
-            <h1 className="text-lg">{"<groovify/>"}</h1>
+            <h1 className="text-lg">groovify.fx</h1>
           </Link>
           <p className="text-xs md:w-[70%]">
           Dive into the rhythm and groove like never before with groovify! Track your Spotify stats, uncover hidden trends in your listening habits, and make every beat count. 

@@ -12,7 +12,7 @@ const Navbar = () => {
           to="/"
           className="nav-title font-extrabold flex items-center  text-lg sm:text-xl h-full gap-1 cursor-pointer"
         >
-          <h1 className="text-xl">{"<groovify/>"}</h1>
+          <h1 className="text-xl">groovify.fx</h1>
         </Link>
         {!jwtToken && (
           <div>

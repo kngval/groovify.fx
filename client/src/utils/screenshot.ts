@@ -6,7 +6,8 @@ export const screenshot = (targetImg: string) => {
     console.log("No HTML Target");
     return;
   }
-
+  const originalDisplay = target.style.display;
+  target.style.display = "block";
   const images = Array.from(target.getElementsByTagName("img"));
 
   const imagePromises: Promise<void>[] = images.map((img) => {
@@ -30,6 +31,8 @@ export const screenshot = (targetImg: string) => {
         anchor.setAttribute("download", "groovify-stats.png");
         anchor.click();
         anchor.remove();
+
+        target.style.display = originalDisplay;
       });
     })
     .catch((error) => {

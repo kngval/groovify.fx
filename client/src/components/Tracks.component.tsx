@@ -8,7 +8,7 @@ const TracksComponent = () => {
   );
 
   return (
-    <div id="ss-tracks" className="bg-customBlue md:rounded-md flex justify-center">
+    <div  className="bg-customBlue md:rounded-md flex justify-center">
 
       {trackItems && trackItems.length > 0 && (
         <div className="grid w-[90%] sm:w-[80%]  py-12">
@@ -68,6 +68,7 @@ const TracksComponent = () => {
           </div>
         </div>
       )}
+      
     </div>
   );
 };

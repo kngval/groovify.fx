@@ -46,7 +46,7 @@ const Login = () => {
         <div className="grid place-items-center">
           <div className=" font-extrabold text-2xl sm:text-3xl xl:text-3xl text-center">
             Groove hard and track your spotify stats
-            with <span className="text-customLightBlue">groovify</span>
+            with <span className="text-customLightBlue">groovify.fx</span>
           </div>
 
           <button
