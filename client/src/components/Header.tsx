@@ -29,7 +29,7 @@ const Header = () => {
   const fetchProfile = async (): Promise<Profile> => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/profile?accessToken=${accessToken}`,
+        `${import.meta.env.VITE_URL}/api/profile?accessToken=${accessToken}`,
         {
           headers: {
             Authorization: `Bearer ${jwtToken}`,
@@ -55,7 +55,9 @@ const Header = () => {
   const fetchCurrentlyPlaying = async (): Promise<CurrentlyPlaying> => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/currently-playing?accessToken=${accessToken}`,
+        `${
+          import.meta.env.VITE_URL
+        }/api/currently-playing?accessToken=${accessToken}`,
         {
           headers: {
             Authorization: `Bearer ${jwtToken}`,

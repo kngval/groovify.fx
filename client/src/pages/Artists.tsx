@@ -21,21 +21,20 @@ const Artists = () => {
       <div className="w-full md:w-[90%]  xl:w-[1200px]">
         <div className="relative flex font-bold justify-center md:justify-normal  px-6 md:px-0 mb-5">
           <div className="flex gap-5 ">
-            
             <div>
               <select
                 value={term}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   setTerm(e.target.value)
                 }
-                className="bg-customBlue p-2 rounded-md text-sm"
+                className="bg-customBlue p-2 rounded-md text-xs md:text-sm"
               >
                 <option value="short_term">Short Term</option>
                 <option value="medium_term">Medium Term</option>
                 <option value="long_term">Long Term</option>
               </select>
             </div>
-            <div className="flex justify-between gap-5 px-3 items-center bg-customBlue  rounded-md text-sm">
+            <div className="flex justify-between gap-5 px-3 items-center bg-customBlue  rounded-md text-xs md:text-sm">
               <h1>Limit</h1>
               <select
                 value={limit}
@@ -51,10 +50,9 @@ const Artists = () => {
                 <option value={50}>50</option>
               </select>
             </div>
-          </div>
             <div
               onClick={() => screenshot("ss-artists")}
-              className="cursor-pointer md:absolute md:right-0 bg-customBlue rounded-md  px-4 py-2 flex items-center justify-between gap-2 text-sm"
+              className="cursor-pointer md:absolute md:right-0 bg-customBlue rounded-md   p-2 flex items-center justify-between gap-2 text-sm"
             >
               <svg
                 className="w-[20px]"
@@ -78,8 +76,9 @@ const Artists = () => {
                   ></path>{" "}
                 </g>
               </svg>
-              <h1>Share</h1>
+              <h1 className="hidden md:block">Share</h1>
             </div>
+          </div>
         </div>
         <div className="relative grid grid-cols-1 lg:grid-cols-4 gap-5   xl:w-[1200px]">
           <div className="lg:col-span-3">
@@ -90,9 +89,9 @@ const Artists = () => {
                 className="hidden bg-customBlue mt-5 py-20 w-[500px] "
               >
                 <div className="flex justify-center mb-2">
-
-                  <h1 className="text-customLightBlue text-md font-bold ">groovify.fx</h1>
-               
+                  <h1 className="text-customLightBlue text-md font-bold ">
+                    groovify.fx
+                  </h1>
                 </div>
                 <div className="text-center mb-2 text-3xl font-bold">
                   My Top Artists
@@ -132,7 +131,6 @@ const Artists = () => {
 
                           <div>
                             <h1 className="text-xs sm:text-sm">{art.name}</h1>
-                           
                           </div>
                         </div>
                       </div>

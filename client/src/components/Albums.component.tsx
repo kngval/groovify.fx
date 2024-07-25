@@ -10,7 +10,7 @@ const AlbumsComponent = () => {
   return (
     <div className="bg-customBlue md:rounded-lg flex justify-center">
       {albums && albums.length > 0 && (
-        <div className="grid gap-[5rem]  w-[80%]  py-12">
+        <div className="grid gap-[5rem] w-[90%]  py-12">
           <div className="grid gap-2">
             <div className="top-3 flex justify-center gap-2 items-center relative mb-[9rem]">
               <img src={albums[1].images[1].url} alt="" className="w-[150px]" />
@@ -23,7 +23,7 @@ const AlbumsComponent = () => {
             </div>
             {albums.map((album, index) => (
               <div className="">
-                <div className="flex items-center p-2">
+                <div className="flex py-2">
                   <div className="flex items-center justify-center w-[50px] ">
                     <h1 className="text-customGray font-extrabold">
                       {index + 1}
@@ -36,7 +36,7 @@ const AlbumsComponent = () => {
                       className="w-[50px] md:w-[60px] rounded-md object-cover object-center"
                     />
                     <div>
-                      <h1 className="text-sm">{album.name}</h1>
+                      <h1 className="text-xs sm:text-sm">{album.name}</h1>
                       {album.artist.map((art, i) => (
                         <span className="text-sm text-customGray break-all text-wrap">
                           <a href={art.link} className="text-xs">

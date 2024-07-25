@@ -22,12 +22,12 @@ const Login = () => {
     try {
       console.log("CODE ", code);
       const response = await axios.get(
-        `http://localhost:3000/callback?code=${code}`
+        `${import.meta.env.VITE_URL}/callback?code=${code}`
       );
 
       dispatch(setJwtToken(response.data.jwtToken));
       dispatch(setRefreshToken(response.data.refresh_token));
-      dispatch(setAccToken(response.data.access_token))
+      dispatch(setAccToken(response.data.access_token));
     } catch (error: any) {
       console.error(
         "Error fetching access token:",
@@ -45,14 +45,14 @@ const Login = () => {
       <div className="main-container w-[70%] md:w-[90%]  xl:w-[1200px] grid grid-cols-1 gap-20 lg:grid-cols-2 lg:gap-5 place-items-center">
         <div className="grid place-items-center">
           <div className=" font-extrabold text-2xl sm:text-3xl xl:text-3xl text-center">
-            Groove hard and track your spotify stats
-            with <span className="text-customLightBlue">groovify.fx</span>
+            Groove hard and track your spotify stats with{" "}
+            <span className="text-customLightBlue">groovify.fx</span>
           </div>
 
           <button
             type="button"
             onClick={() =>
-              (window.location.href = "http://localhost:3000/login")
+              (window.location.href = `${import.meta.env.VITE_URL}/login`)
             }
             className="bg-customLightBlue px-6 py-2 mt-5 text-sm rounded-full font-bold"
           >

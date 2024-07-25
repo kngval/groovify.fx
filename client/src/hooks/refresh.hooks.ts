@@ -14,7 +14,7 @@ export const useTokenRefresh = () => {
     try {
       if (refreshToken) {
         const response = await axios.post(
-          "http://localhost:3000/refresh_token",
+          `${import.meta.env.VITE_URL}/refresh_token`,
           {
             refreshToken,
           },

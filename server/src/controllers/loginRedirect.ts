@@ -14,7 +14,7 @@ dotenv.config();
 // }
 const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
-const redirect_uri = "http://localhost:5173/login";
+const redirect_uri = "http://192.168.1.6:5173/login";
 export const loginRedirect = async (_req: Request, res: Response) => {
   // const state = generateRandomString(10);
   const scope = [

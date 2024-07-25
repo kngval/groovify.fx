@@ -37,7 +37,7 @@ const ArtistsComponent = () => {
                   className="rounded-full object-cover object-center w-[50px] h-[50px] md:w-[60px] md:h-[60px]"
                 />
                 <div>
-                  <h1 className="text-sm">{artist.name}</h1>
+                  <h1 className="text-xs sm:text-sm">{artist.name}</h1>
                 </div>
               </div>
             ))}

@@ -46,22 +46,22 @@ const Tracks = () => {
   return (
     <div className="flex justify-center mb-[10rem]">
       <div className="w-full md:w-[90%]  xl:w-[1200px]">
-        <div className="flex font-semibold items-center justify-center lg:justify-normal px-6 md:px-0 mb-5">
-          <div className="relative flex w-full gap-5 grid-cols-3">
+        <div className="flex  font-semibold items-center justify-center lg:justify-normal px-6 md:px-0 mb-5">
+          <div className="relative flex gap-5 grid-cols-3 font-bold">
             <div>
               <select
                 value={term}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   setTerm(e.target.value)
                 }
-                className="bg-customBlue p-2 rounded-md text-sm"
+                className="bg-customBlue p-2 rounded-md text-xs  md:text-sm"
               >
                 <option value="short_term">Short Term</option>
                 <option value="medium_term">Medium Term</option>
                 <option value="long_term">Long Term</option>
               </select>
             </div>
-            <div className="flex gap-5 px-3 items-center bg-customBlue  rounded-md text-sm">
+            <div className="flex gap-5 px-3 items-center bg-customBlue  rounded-md text-xs  md:text-sm">
               <h1>Limit</h1>
               <select
                 value={limit}
@@ -79,10 +79,10 @@ const Tracks = () => {
             </div>
             <div
               onClick={() => screenshot("ss-tracks")}
-              className="cursor-pointer md:absolute md:right-0 bg-customBlue rounded-md  px-4 py-2 flex items-center justify-between gap-2 text-sm"
+              className="cursor-pointer md:absolute md:right-0 bg-customBlue rounded-md  px-2 py-2 flex items-center justify-between md:gap-2 text-sm"
             >
               <svg
-                className="w-[20px]"
+                className="w-[20px] h-[20px]"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +103,7 @@ const Tracks = () => {
                   ></path>{" "}
                 </g>
               </svg>
-              <h1>Share</h1>
+              <h1 className="hidden md:block">Share</h1>
             </div>
           </div>
         </div>
