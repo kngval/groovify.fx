@@ -28,7 +28,7 @@ const ArtistsComponent = () => {
           <div className="grid gap-2 px-5 w-[90%]">
             {artistsItems.map((artist, index) => (
               <div className="flex gap-5  items-center" key={index}>
-                <div className="font-extrabold text-center break-all text-wrap text-customGray">
+                <div className="font-extrabold w-[25px] text-center break-all text-wrap text-customGray">
                   {index + 1}
                 </div>
                 <img
