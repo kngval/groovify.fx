@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import AlbumsComponent from "../components/Albums.component";
 import { fetchTopAlbums } from "../redux/albums";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../redux/store";
 import Popularity from "../components/Popularity";
 import { fetchTopTracks } from "../redux/tracks";
 import { screenshot } from "../utils/screenshot";
 
 const Albums = () => {
+  const albums = useSelector(
+    (state: RootState) => state.albums.albums?.sortedAlbums
+  );
   const dispatch = useDispatch<AppDispatch>();
   const [term, setTerm] = useState("short_term");
   const [limit, setLimit] = useState<number>(20);
@@ -18,15 +21,15 @@ const Albums = () => {
   return (
     <div className="flex justify-center mb-[10rem]">
       <div className="w-full md:w-[90%]  xl:w-[1200px]">
-        <div className="flex justify-center md:justify-normal mb-5">
-      <div className="relative flex gap-5 grid-cols-3">
+        <div className="relative flex justify-center md:justify-normal mb-5">
+          <div className=" flex gap-5 grid-cols-3">
             <div>
               <select
                 value={term}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   setTerm(e.target.value)
                 }
-                className="bg-customBlue p-2 rounded-md text-xs font-bold md:text-sm"
+                className="bg-customBlue p-2 rounded-md text-xs font-bold md:text-sm outline-none"
               >
                 <option value="short_term">Short Term</option>
                 <option value="medium_term">Medium Term</option>
@@ -40,7 +43,7 @@ const Albums = () => {
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   setLimit(parseInt(e.target.value))
                 }
-                className="bg-customBlue"
+                className="bg-customBlue outline-none"
               >
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -50,8 +53,8 @@ const Albums = () => {
               </select>
             </div>
             <div
-              onClick={() => screenshot("ss-tracks")}
-              className="cursor-pointer md:absolute md:right-0 bg-customBlue rounded-md  px-2 py-2 flex items-center justify-between md:gap-2 text-sm"
+              onClick={() => screenshot("ss-albums")}
+              className="outline-none cursor-pointer md:absolute md:right-0 bg-customBlue rounded-md  px-2 py-2 flex items-center justify-between md:gap-2 text-sm"
             >
               <svg
                 className="w-[20px] h-[20px]"
@@ -78,10 +81,81 @@ const Albums = () => {
               <h1 className="hidden md:block">Share</h1>
             </div>
           </div>
-          </div>
+        </div>
         <div className="grid gap-5 lg:grid-cols-4">
           <div className="lg:col-span-3">
             <AlbumsComponent />
+            {albums && albums.length > 0 && (
+              <div
+                id="ss-albums"
+                className="hidden bg-customBlue mt-5 py-20 w-[500px] "
+              >
+                <div className="flex justify-center mb-2">
+                  <h1 className="text-customLightBlue text-md font-bold ">
+                    groovify.fx
+                  </h1>
+                </div>
+                <div className="text-center mb-2 text-3xl font-bold">
+                  My Top Albums
+                </div>
+                <div className="text-center mb-12">
+                  {term === "short_term"
+                    ? "Short Term"
+                    : term === "medium_term"
+                    ? "Medium Term"
+                    : "Long Term"}
+                </div>
+                <div>
+                  <div className="top-3 flex justify-center gap-2 items-center relative mb-12">
+                    <img
+                      src={albums[1].images[1].url}
+                      className="w-[130px] h-[130px] rounded-full"
+                    />
+                    <img
+                      src={albums[0].images[1].url}
+                      className="w-[150px] h-[150px] rounded-full absolute "
+                    />
+                    <img
+                      src={albums[2].images[1].url}
+                      className="w-[130px] h-[130px] rounded-full"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex justify-center ">
+                  <div className="">
+                    {albums.slice(0, 5).map((album, index) => (
+                      <div key={index}>
+                        <div className="flex items-center gap-5 p-2">
+                          <div className=" flex justify-center items-center text-customGray w-[20px]">
+                            <h1 className="font-extrabold">{index + 1}</h1>
+                          </div>
+
+                          <div>
+                            <h1 className="text-sm">{album.name}</h1>
+                            {album.artist.map((a, i) => (
+                              <span
+                                key={i}
+                                className="text-customGray break-all text-wrap"
+                              >
+                                <p className="text-xs">{a.name}</p>
+                                {i < album.artist.length - 1 && ", "}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="mt-12 flex justify-center text-xs">
+                  See your Spotify Stats at{" "}
+                  <span className="ml-1 text-customLightBlue font-bold">
+                    groovify.fx
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
           <div className="lg:sticky top-[20px] h-[100px]">
             <Popularity />

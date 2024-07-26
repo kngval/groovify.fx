@@ -48,7 +48,7 @@ const Popularity = () => {
       <div className="font-extrabold text-xl mb-5 ">By Popularity</div>
       <div>
         <div className="flex  items-center gap-2">
-          <span className="text-sm w-[70px] lg:w-[100px] font-semibold whitespace-nowrap ">
+          <span className="text-sm text-end w-[70px] lg:w-[100px] font-semibold whitespace-nowrap ">
             Obscure
           </span>
           <div className=" h-[10px] w-full">
@@ -69,7 +69,7 @@ const Popularity = () => {
 
       <div>
         <div className="flex  items-center gap-2">
-          <span className="text-sm  w-[70px] lg:w-[100px] font-semibold whitespace-nowrap">
+          <span className="text-sm text-end  w-[70px] lg:w-[100px] font-semibold whitespace-nowrap">
             Average
           </span>
 
@@ -90,7 +90,7 @@ const Popularity = () => {
       </div>
       <div>
         <div className="flex gap-2 items-center ">
-          <span className="text-sm w-[70px] lg:w-[100px] font-semibold whitespace-nowrap">
+          <span className="text-sm w-[76px] text-end lg:w-[100px] font-semibold whitespace-nowrap">
             Popular
           </span>
           <div className=" h-[10px] w-full">

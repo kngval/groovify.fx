@@ -6,7 +6,7 @@ const Navbar = () => {
   const jwtToken = useSelector((state: RootState) => state.auth.jwtToken);
 
   return (
-    <div className="py-6  flex justify-center items-center ">
+    <div className={`${!jwtToken ? "bg-transparent" : "bg-customBlue"} py-6  flex justify-center items-center `}>
       <div className="w-[90%]  xl:w-[1200px] flex justify-between items-center">
         <Link
           to="/"

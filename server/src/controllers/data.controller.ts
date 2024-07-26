@@ -6,7 +6,6 @@ import { GenresState } from "../types/Genres";
 export const fetchProfile = async (req: Request, res: Response) => {
   const { accessToken } = req.query;
 
-  console.log("ACCESS TOKEN IN REQ,USER PROFILE: ", accessToken);
   if (!accessToken) {
     return res.status(401).json({ error: "Access token not found" });
   }

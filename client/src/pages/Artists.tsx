@@ -27,7 +27,7 @@ const Artists = () => {
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   setTerm(e.target.value)
                 }
-                className="bg-customBlue p-2 rounded-md text-xs md:text-sm"
+                className="bg-customBlue p-2 rounded-md text-xs md:text-sm outline-none"
               >
                 <option value="short_term">Short Term</option>
                 <option value="medium_term">Medium Term</option>
@@ -41,7 +41,7 @@ const Artists = () => {
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   setLimit(parseInt(e.target.value))
                 }
-                className="bg-customBlue"
+                className="bg-customBlue outline-none"
               >
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -52,7 +52,7 @@ const Artists = () => {
             </div>
             <div
               onClick={() => screenshot("ss-artists")}
-              className="cursor-pointer md:absolute md:right-0 bg-customBlue rounded-md   p-2 flex items-center justify-between gap-2 text-sm"
+              className="outline-none cursor-pointer md:absolute md:right-0 bg-customBlue rounded-md   p-2 flex items-center justify-between gap-2 text-sm"
             >
               <svg
                 className="w-[20px]"

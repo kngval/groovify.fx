@@ -45,16 +45,16 @@ const Tracks = () => {
 
   return (
     <div className="flex justify-center mb-[10rem]">
-      <div className="w-full md:w-[90%]  xl:w-[1200px]">
-        <div className="flex  font-semibold items-center justify-center lg:justify-normal px-6 md:px-0 mb-5">
-          <div className="relative flex gap-5 grid-cols-3 font-bold">
+      <div className="w-full relative md:w-[90%]  xl:w-[1200px]">
+        <div className="flex  font-semibold items-center justify-center md:justify-normal px-6 md:px-0 mb-5">
+          <div className=" flex gap-5 grid-cols-3 font-bold">
             <div>
               <select
                 value={term}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   setTerm(e.target.value)
                 }
-                className="bg-customBlue p-2 rounded-md text-xs  md:text-sm"
+                className="bg-customBlue p-2 rounded-md text-xs  md:text-sm outline-none"
               >
                 <option value="short_term">Short Term</option>
                 <option value="medium_term">Medium Term</option>
@@ -68,7 +68,7 @@ const Tracks = () => {
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   setLimit(parseInt(e.target.value))
                 }
-                className="bg-customBlue"
+                className="bg-customBlue outline-none"
               >
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -79,7 +79,7 @@ const Tracks = () => {
             </div>
             <div
               onClick={() => screenshot("ss-tracks")}
-              className="cursor-pointer md:absolute md:right-0 bg-customBlue rounded-md  px-2 py-2 flex items-center justify-between md:gap-2 text-sm"
+              className="cursor-pointer md:absolute md:right-0 bg-customBlue rounded-md  px-2 py-2 flex items-center justify-between md:gap-2 text-sm outline-none"
             >
               <svg
                 className="w-[20px] h-[20px]"

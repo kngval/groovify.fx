@@ -79,7 +79,7 @@ const Header = () => {
     <div
       className={`relative ${
         !jwtToken ? "hidden" : "block"
-      } bg-customBlue px-4 grid place-items-center mb-[12rem]`}
+      } bg-customBlue px-4 grid place-items-center mb-20`}
     >
       <div className="wrapper w-[90%]  xl:w-[1200px]  relative pt-20 ">
         <div className="grid lg:grid-cols-2 gap-7 place-items-center  lg:flex lg:justify-between lg:items-center  m-auto ">

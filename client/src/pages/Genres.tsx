@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import GenresComponent from "../components/genres.component";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../redux/store";
 import { fetchTopGenres } from "../redux/genres";
 import { screenshot } from "../utils/screenshot";
 
 const Genres = () => {
+  const genres = useSelector((state:RootState) => state.genres.genres?.sortedGenres);
   const [term, setTerm] = useState("short_term");
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
@@ -14,7 +15,7 @@ const Genres = () => {
   return (
     <div className="flex justiflex justify-center mb-[10rem]">
       <div className="w-full md:w-[90%]  xl:w-[1200px]">
-      <div className="relative flex font-bold justify-between  px-6 md:px-0 mb-5">
+      <div className="relative flex font-bold justify-center gap-5 md:justify-between  px-6 md:px-0 mb-5">
           <div className="flex gap-5 ">
             
             <div>
@@ -23,7 +24,7 @@ const Genres = () => {
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   setTerm(e.target.value)
                 }
-                className="bg-customBlue p-2 rounded-md text-sm"
+                className="bg-customBlue p-2 rounded-md text-sm outline-none"
               >
                 <option value="short_term">Short Term</option>
                 <option value="medium_term">Medium Term</option>
@@ -33,8 +34,8 @@ const Genres = () => {
           
           </div>
             <div
-              onClick={() => screenshot("ss-artists")}
-              className="cursor-pointer md:absolute md:right-0 bg-customBlue rounded-md  px-4 py-2 flex items-center justify-between gap-2 text-sm"
+              onClick={() => screenshot("ss-genres")}
+              className="outline-none cursor-pointer  bg-customBlue rounded-md  px-4 py-2 flex items-center justify-between gap-2 text-sm"
             >
               <svg
                 className="w-[20px]"
@@ -62,6 +63,54 @@ const Genres = () => {
             </div>
         </div>
         <GenresComponent />
+        {genres && genres.length > 0 && (
+              <div
+                id="ss-genres"
+                className="hidden bg-customBlue mt-5 py-20 w-[500px] "
+              >
+                <div className="flex justify-center mb-2">
+                  <h1 className="text-customLightBlue text-md font-bold ">
+                    groovify.fx
+                  </h1>
+                </div>
+                <div className="text-center mb-2 text-3xl font-bold">
+                  My Top Genres
+                </div>
+                <div className="text-center mb-12">
+                  {term === "short_term"
+                    ? "Short Term"
+                    : term === "medium_term"
+                    ? "Medium Term"
+                    : "Long Term"}
+                </div>
+                 
+
+                <div className="flex justify-center ">
+                  <div className="">
+                    {genres.slice(0, 5).map((genre, index) => (
+                      <div key={index}>
+                        <div className="flex items-center gap-5 p-2">
+                          <div className=" flex justify-center items-center text-customGray w-[20px]">
+                            <h1 className="font-extrabold">{index + 1}</h1>
+                          </div>
+
+                          <div>
+                            <h1 className="text-sm">{genre[0]}</h1>
+                    
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="mt-12 flex justify-center text-xs">
+                  See your Spotify Stats at{" "}
+                  <span className="ml-1 text-customLightBlue font-bold">
+                    groovify.fx
+                  </span>
+                </div>
+              </div>
+            )}
       </div>
     </div>
   );
